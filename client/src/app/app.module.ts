@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {TuiAvatarModule} from "@taiga-ui/kit";
+import {TuiAvatarModule, TuiIslandModule} from "@taiga-ui/kit";
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import {TuiAvatarModule} from "@taiga-ui/kit";
     TuiRootModule,
     TuiDialogModule,
     TuiAlertModule,
-    TuiAvatarModule
+    TuiAvatarModule,
+    TuiIslandModule
   ],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]
