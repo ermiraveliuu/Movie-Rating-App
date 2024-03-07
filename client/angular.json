@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/movie-rating-app",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -27,17 +27,9 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "node_modules/@taiga-ui/icons/src",
-                "output": "assets/taiga-ui/icons"
-              }
+              "src/assets"
             ],
             "styles": [
-              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-              "node_modules/@taiga-ui/styles/taiga-ui-global.less",
               "src/styles.scss"
             ],
             "scripts": []
@@ -59,12 +51,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -73,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "movie-rating-app:build:production"
+              "buildTarget": "movie-rating-app:build:production"
             },
             "development": {
-              "browserTarget": "movie-rating-app:build:development"
+              "buildTarget": "movie-rating-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "movie-rating-app:build"
+            "buildTarget": "movie-rating-app:build"
           }
         },
         "test": {
@@ -98,12 +87,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "node_modules/@taiga-ui/icons/src",
-                "output": "assets/taiga-ui/icons"
-              }
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss"
