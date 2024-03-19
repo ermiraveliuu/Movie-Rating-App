@@ -1,0 +1,8 @@
+<div class="flex justify-between items-center h-full gap-14">
+  <p>Reel Review</p>
+  <search class="grow"/>
+
+  <tui-svg [src]="tuiIconCompass"/>
+  <tui-svg [src]="tuiIconUser" *ngIf="loggedIn"/>
+  <p *ngIf="!loggedIn">Login</p>
+</div>

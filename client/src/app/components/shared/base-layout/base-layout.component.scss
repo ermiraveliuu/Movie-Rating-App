@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--tui-base-01);
+}
+
+sidebar {
+  height: calc(100% - 60px);
+  width: 60px;
+}
+
+app-header {
+  width: 100%;
+  height: 60px;
+}
