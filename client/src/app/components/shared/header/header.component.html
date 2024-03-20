@@ -1,8 +1,18 @@
-<div class="flex justify-between items-center h-full gap-14">
-  <p>Reel Review</p>
-  <search class="grow"/>
+<div class="flex justify-between items-center h-full gap-60">
+  <div class="flex justify-between items-center h-full gap-1 logo">
+    <tui-svg [src]="tuiIconFilm" />
+    <p class="text-sm">Reel Review</p>
+  </div>
 
-  <tui-svg [src]="tuiIconCompass"/>
-  <tui-svg [src]="tuiIconUser" *ngIf="loggedIn"/>
-  <p *ngIf="!loggedIn">Login</p>
+  <search class="grow w-40"/>
+
+  <div class="flex justify-between items-center h-full gap-4">
+    <tui-svg [src]="tuiIconCompass"/>
+    <tui-svg [src]="tuiIconSun" *ngIf="darkMode" (click)="toggleDarkMode()"/>
+    <tui-svg [src]="tuiIconMoon" *ngIf="!darkMode" (click)="toggleDarkMode()"/>
+    <tui-svg [src]="tuiIconUser" *ngIf="authService.loggedIn" (click)="authService.toggle()"/>
+    <p *ngIf="!authService.loggedIn" (click)="authService.toggle()">Login</p>
+  </div>
+
+
 </div>

@@ -1,10 +1,16 @@
 :host {
   display: block;
   background-color: var(--tui-base-02);
-  padding: 12px;
+  padding: 12px 40px;
 }
 
-p {
-  color: var(--tui-accent);
-  font-size: 24px;
+.logo {
+
+  tui-svg {
+    color: var(--tui-accent);
+  }
+}
+
+tui-svg, p {
+  font-size: 18px;
 }

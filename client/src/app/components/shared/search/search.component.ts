@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {TuiInputModule} from "@taiga-ui/kit";
 import {TuiTextfieldControllerModule} from "@taiga-ui/core";
+import {tuiIconSearch} from "@taiga-ui/icons";
 
 @Component({
   selector: 'search',
@@ -14,4 +15,5 @@ import {TuiTextfieldControllerModule} from "@taiga-ui/core";
 })
 export class SearchComponent {
 
+  protected readonly tuiIconSearch = tuiIconSearch;
 }
