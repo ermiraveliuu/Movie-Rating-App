@@ -10,7 +10,7 @@
     <tui-svg [src]="tuiIconCompass"/>
     <tui-svg [src]="tuiIconSun" *ngIf="darkMode" (click)="toggleDarkMode()"/>
     <tui-svg [src]="tuiIconMoon" *ngIf="!darkMode" (click)="toggleDarkMode()"/>
-    <tui-svg [src]="tuiIconUser" *ngIf="authService.loggedIn" (click)="authService.toggle()"/>
+    <tui-svg [src]="tuiIconUser" *ngIf="authService.loggedIn" [routerLink]="'login'"/>
     <p *ngIf="!authService.loggedIn" (click)="authService.toggle()">Login</p>
   </div>
 

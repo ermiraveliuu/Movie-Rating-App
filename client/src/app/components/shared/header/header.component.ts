@@ -16,6 +16,7 @@ import {
 import {NgIf} from "@angular/common";
 import {DarkModeService} from "../../../services/dark-mode.service";
 import {AuthService} from "../../../services/auth.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -27,6 +28,7 @@ import {AuthService} from "../../../services/auth.service";
     TuiButtonModule,
     SearchComponent,
     NgIf,
+    RouterLink,
   ]
 })
 export class HeaderComponent {
