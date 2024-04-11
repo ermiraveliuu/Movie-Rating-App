@@ -15,7 +15,7 @@ app.use("/api/v1/movies", movies);
 const init = async () => {
     try {
         await connectDB(process.env.MONGO_URI);
-        app.listen(3000, console.log(`server is listening on port ${port}`));
+        app.listen(3000, () => console.log(`server is listening on port ${port}`));
     } catch (error) {
         console.log(error);
     }

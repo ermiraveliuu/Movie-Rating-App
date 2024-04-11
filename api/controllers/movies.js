@@ -1,15 +1,30 @@
 const Movie = require('../models/Movie')
 
-const getAllMovies = (req, res) => {
-  res.send("Get All Movies");
+const getAllMovies = async (req, res) => {
+  try {
+    const movies = await Movie.find({})
+    res.status(201).json(movies);
+  } catch (e) {
+    res.status(500).json({message: e})
+  }
 };
 
-const getMovie = (req, res) => {
-  res.json({id: req.params.id});
+const getMovie = async (req, res) => {
+  try {
+    const movies = await Movie.find({id: req.params.id})
+    res.status(201).json(movies);
+  } catch (e) {
+    res.status(500).json({message: e})
+  }
 };
 
-const createMovie = (req, res) => {
-  res.json(req.body);
+const createMovie = async (req, res) => {
+  try {
+    const movie = await Movie.create(req.body)
+    res.status(201).json(movie);
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
 };
 
 const updateMovie = (req, res) => {
