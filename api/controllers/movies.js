@@ -1,3 +1,5 @@
+const Movie = require('../models/Movie')
+
 const getAllMovies = (req, res) => {
   res.send("Get All Movies");
 };
