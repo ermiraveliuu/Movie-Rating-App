@@ -1,0 +1,15 @@
+<div class="w-full h-lvh flex justify-center items-center">
+  <tui-island class="flex justify-between gap-3 flex-col">
+    <p class="text-2xl mb-4 login-text flex items-center justify-center">
+      <span>Sign Up</span>
+    </p>
+    <div class="flex w-full gap-2">
+      <text-input name="First Name" [control]="formControls.firstName" class="w-full"/>
+      <text-input name="Last Name" [control]="formControls.lastName" class="w-full"/>
+    </div>
+    <text-input name="email" [control]="formControls.email"/>
+    <text-input name="username" [control]="formControls.username"/>
+    <password-input name="password" [control]="formControls.password"/>
+    <button tuiButton class="mt-4 w-full">Sign up</button>
+  </tui-island>
+</div>

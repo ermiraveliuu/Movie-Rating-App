@@ -13,7 +13,6 @@ import {RouterOutlet} from '@angular/router';
 import {Title} from "@angular/platform-browser";
 import {TuiAccordionModule} from "@taiga-ui/kit";
 import {HeaderComponent} from "./components/shared/header/header.component";
-import {tuiIconHeartLarge} from "@taiga-ui/icons";
 import {NgIf} from "@angular/common";
 import {DarkModeService} from "./services/dark-mode.service";
 
@@ -37,6 +36,4 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('Reel Review')
   }
-
-  protected readonly tuiIconHeartLarge = tuiIconHeartLarge;
 }

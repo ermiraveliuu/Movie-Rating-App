@@ -1,5 +1,11 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {TuiIslandModule} from "@taiga-ui/kit";
+import {Component, inject, Input} from "@angular/core";
+import {TuiIslandModule, TuiLineClampModule, TuiRatingModule} from "@taiga-ui/kit";
+import {tuiIconStar} from "@taiga-ui/icons";
+import {TuiButtonModule, TuiSvgModule} from "@taiga-ui/core";
+import {FormsModule} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
+import {DialogService} from "../../../services/dialog.service";
+import {UnauthorizedDialogComponent} from "../unauthorized-dialog/unauthorized-dialog.component";
 
 @Component({
   selector: 'movie-card',
@@ -7,37 +13,35 @@ import {TuiIslandModule} from "@taiga-ui/kit";
   styleUrls: ['movie-card.component.scss'],
   standalone: true,
   imports: [
-    TuiIslandModule
+    TuiIslandModule,
+    TuiSvgModule,
+    TuiRatingModule,
+    FormsModule,
+    TuiLineClampModule,
+    TuiButtonModule
   ]
 })
-export class MovieCardComponent implements OnInit{
+export class MovieCardComponent {
 
   @Input() movie: any;
 
-  ngOnInit() {
-    console.log(this.movie);
+  protected readonly tuiIconStar = tuiIconStar;
+  protected readonly authService = inject(AuthService)
+  protected readonly dialogService = inject(DialogService)
+  protected round(rating: number) {
+    return rating.toFixed(1)
   }
 
-  singleMovie =       {
-    "adult": false,
-    "backdrop_path": "/mExN6lJHmLeGjwDmDrNNjR4MdCq.jpg",
-    "genre_ids": [
-      28,
-      12,
-      16,
-      35,
-      10751
-    ],
-    "id": 1011985,
-    "original_language": "en",
-    "original_title": "Kung Fu Panda 4",
-    "overview": "Po is gearing up to become the spiritual leader of his Valley of Peace, but also needs someone to take his place as Dragon Warrior. As such, he will train a new kung fu practitioner for the spot and will encounter a villain called the Chameleon who conjures villains from the past.",
-    "popularity": 5294.537,
-    "poster_path": "/wYOuMSTR5D0dSwtqjYq59aqziT1.jpg",
-    "release_date": "2024-03-02",
-    "title": "Kung Fu Panda 4",
-    "video": false,
-    "vote_average": 7,
-    "vote_count": 178
+  protected rate(event: MouseEvent, movie:any) {
+    event.stopPropagation();
+    if(!this.authService.loggedIn) {
+      this.dialogService.open(UnauthorizedDialogComponent, {label: '', size: 's'}).subscribe()
+      return;
+    }
+    console.log('rate');
   }
+  protected addToWishlist(movie:any) {
+
+  }
+
 }

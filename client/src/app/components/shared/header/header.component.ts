@@ -2,11 +2,13 @@ import {Component, inject} from "@angular/core";
 import {TuiButtonModule, TuiSvgModule} from "@taiga-ui/core";
 import {SearchComponent} from "../search/search.component";
 import {
+  tuiIconBookmark,
   tuiIconCompass,
   tuiIconCompassLarge,
   tuiIconFilm,
   tuiIconFilmLarge,
   tuiIconFilmOutline,
+  tuiIconFilter,
   tuiIconMoon,
   tuiIconSun,
   tuiIconSunLarge,
@@ -53,7 +55,9 @@ export class HeaderComponent {
   protected readonly tuiIconCompassLarge = tuiIconCompassLarge;
   protected readonly tuiIconSunLarge = tuiIconSunLarge;
   protected readonly tuiIconMoon = tuiIconMoon;
+  protected readonly tuiIconFilter = tuiIconFilter;
   protected readonly tuiIconFilm = tuiIconFilm;
+  protected readonly tuiIconBookmark = tuiIconBookmark;
   protected readonly tuiIconFilmOutline = tuiIconFilmOutline;
   protected readonly tuiIconFilmLarge = tuiIconFilmLarge;
 }

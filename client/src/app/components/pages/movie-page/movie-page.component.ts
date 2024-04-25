@@ -1,12 +1,12 @@
-import {Component, inject} from "@angular/core";
+import {Component, inject, OnInit} from "@angular/core";
 import {MovieCardComponent} from "../../shared/movie-card/movie-card.component";
 import {JsonPipe, NgForOf} from "@angular/common";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: "movie-layout",
-  templateUrl: 'movie-layout.component.html',
-  styleUrls: ['movie-layout.component.scss'],
+  selector: "movie-page",
+  templateUrl: 'movie-page.component.html',
+  styleUrls: ['movie-page.component.scss'],
   standalone: true,
   imports: [
     MovieCardComponent,
@@ -14,8 +14,7 @@ import {ActivatedRoute, Router} from "@angular/router";
     JsonPipe
   ]
 })
-export class MovieLayoutComponent {
-
+export class MoviePageComponent implements OnInit {
   json ={
     "page": 1,
     "results": [
@@ -418,9 +417,39 @@ export class MovieLayoutComponent {
     "total_pages": 43095,
     "total_results": 861894
   }
-  public router = inject(Router);
-  public route = inject(ActivatedRoute)
-  protected goToMovieDetails(movie: any) {
-    this.router.navigate(['movies', movie.id], {relativeTo: this.route})
+  movie:any;
+  private route = inject(ActivatedRoute);
+
+  ngOnInit() {
+    const movieId = this.route.snapshot.params['id']
+    this.movie = this.json.results.find(movie => movie.id == movieId)
+    console.log(this.movie);
   }
 }
+
+
+//  json ={
+//     "page": 1,
+//     "results": [
+//       {
+//         "adult": false,
+//         "backdrop_path": "/mExN6lJHmLeGjwDmDrNNjR4MdCq.jpg",
+//         "genre_ids": [
+//           28,
+//           12,
+//           16,
+//           35,
+//           10751
+//         ],
+//         "id": 1011985,
+//         "original_language": "en",
+//         "original_title": "Kung Fu Panda 4",
+//         "overview": "Po is gearing up to become the spiritual leader of his Valley of Peace, but also needs someone to take his place as Dragon Warrior. As such, he will train a new kung fu practitioner for the spot and will encounter a villain called the Chameleon who conjures villains from the past.",
+//         "popularity": 5294.537,
+//         "poster_path": "/wYOuMSTR5D0dSwtqjYq59aqziT1.jpg",
+//         "release_date": "2024-03-02",
+//         "title": "Kung Fu Panda 4",
+//         "video": false,
+//         "vote_average": 7,
+//         "vote_count": 178
+//       },

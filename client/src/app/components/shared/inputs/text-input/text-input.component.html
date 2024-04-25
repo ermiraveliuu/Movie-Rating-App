@@ -3,6 +3,6 @@
     Enter {{name | titlecase}}...
   </tui-input>
 </label>
-<tui-error *ngIf="control.hasError('required') && control.touched">
+<error *ngIf="control.hasError('required') && control.touched">
   {{name | titlecase}} is required
-</tui-error>
+</error>

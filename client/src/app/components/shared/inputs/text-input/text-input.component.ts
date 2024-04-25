@@ -4,6 +4,7 @@ import {TuiInputModule} from "@taiga-ui/kit";
 import {NgIf, TitleCasePipe} from "@angular/common";
 import {FormControlPipe} from "../../../../pipes/formControl.pipe";
 import {TuiErrorModule, TuiLabelModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
+import {ErrorComponent} from "../../error/error.component";
 
 @Component({
   selector: 'text-input',
@@ -18,7 +19,8 @@ import {TuiErrorModule, TuiLabelModule, TuiTextfieldControllerModule} from "@tai
     TuiLabelModule,
     TuiErrorModule,
     NgIf,
-    TuiTextfieldControllerModule
+    TuiTextfieldControllerModule,
+    ErrorComponent,
   ]
 })
 export class TextInputComponent {
