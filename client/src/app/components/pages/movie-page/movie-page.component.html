@@ -1,0 +1,19 @@
+<div
+  class="w-full blur-2xl gap-6 absolute h-[500px] opacity-50 mt-8 ml-80"
+  setBackgroundImage
+  [imageUrl]="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.poster_path"
+>
+</div>
+<div class="absolute flex m-10 gap-20">
+  <img class="rounded-t-lg movie-image " [src]="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.backdrop_path" alt="movie-poster-image"/>
+  <div class="">
+    <h1 class="text-4xl font-bold">{{ movie.title }}{{ movie.release_dat}}</h1>
+    <ng-container *ngFor="let genreId of movie.genre_ids">
+      <tui-tag class="mr-1.5 my-2" [value]="getGenreName(genreId)" *ngIf="!!genreId"/>
+    </ng-container>
+
+    <p>Rating </p>
+    <tui-rating  />
+  </div>
+</div>
+

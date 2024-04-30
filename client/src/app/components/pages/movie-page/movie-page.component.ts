@@ -1,7 +1,9 @@
 import {Component, inject, OnInit} from "@angular/core";
 import {MovieCardComponent} from "../../shared/movie-card/movie-card.component";
-import {JsonPipe, NgForOf} from "@angular/common";
+import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
+import {SetBackgroundImageDirective} from "../../../directives/set-background-image.directive";
+import {TuiRatingModule, TuiTagModule} from "@taiga-ui/kit";
 
 @Component({
   selector: "movie-page",
@@ -11,7 +13,11 @@ import {ActivatedRoute} from "@angular/router";
   imports: [
     MovieCardComponent,
     NgForOf,
-    JsonPipe
+    JsonPipe,
+    SetBackgroundImageDirective,
+    TuiTagModule,
+    NgIf,
+    TuiRatingModule
   ]
 })
 export class MoviePageComponent implements OnInit {
@@ -420,36 +426,92 @@ export class MoviePageComponent implements OnInit {
   movie:any;
   private route = inject(ActivatedRoute);
 
+  getGenreName(genreId: number) {
+    return this.genres.find(genre => genre.id === genreId)?.name || ''
+  }
+
   ngOnInit() {
     const movieId = this.route.snapshot.params['id']
     this.movie = this.json.results.find(movie => movie.id == movieId)
-    console.log(this.movie);
   }
+
+
+genres = [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 99,
+      "name": "Documentary"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
+      "id": 36,
+      "name": "History"
+    },
+    {
+      "id": 27,
+      "name": "Horror"
+    },
+    {
+      "id": 10402,
+      "name": "Music"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 10749,
+      "name": "Romance"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    },
+    {
+      "id": 10770,
+      "name": "TV Movie"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    },
+    {
+      "id": 10752,
+      "name": "War"
+    },
+    {
+      "id": 37,
+      "name": "Western"
+    }
+]
 }
-
-
-//  json ={
-//     "page": 1,
-//     "results": [
-//       {
-//         "adult": false,
-//         "backdrop_path": "/mExN6lJHmLeGjwDmDrNNjR4MdCq.jpg",
-//         "genre_ids": [
-//           28,
-//           12,
-//           16,
-//           35,
-//           10751
-//         ],
-//         "id": 1011985,
-//         "original_language": "en",
-//         "original_title": "Kung Fu Panda 4",
-//         "overview": "Po is gearing up to become the spiritual leader of his Valley of Peace, but also needs someone to take his place as Dragon Warrior. As such, he will train a new kung fu practitioner for the spot and will encounter a villain called the Chameleon who conjures villains from the past.",
-//         "popularity": 5294.537,
-//         "poster_path": "/wYOuMSTR5D0dSwtqjYq59aqziT1.jpg",
-//         "release_date": "2024-03-02",
-//         "title": "Kung Fu Panda 4",
-//         "video": false,
-//         "vote_average": 7,
-//         "vote_count": 178
-//       },
