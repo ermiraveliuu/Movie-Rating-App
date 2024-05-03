@@ -1,9 +1,19 @@
 import {Component, inject, OnInit} from "@angular/core";
 import {MovieCardComponent} from "../../shared/movie-card/movie-card.component";
-import {JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {DatePipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {SetBackgroundImageDirective} from "../../../directives/set-background-image.directive";
 import {TuiRatingModule, TuiTagModule} from "@taiga-ui/kit";
+import {
+  tuiIconBookmark,
+  tuiIconBookmarkLarge,
+  tuiIconHeart,
+  tuiIconHeartLarge,
+  tuiIconStar,
+  tuiIconStarLarge
+} from "@taiga-ui/icons";
+import {FormsModule} from "@angular/forms";
+import {TuiHintModule, TuiSvgModule} from "@taiga-ui/core";
 
 @Component({
   selector: "movie-page",
@@ -17,7 +27,11 @@ import {TuiRatingModule, TuiTagModule} from "@taiga-ui/kit";
     SetBackgroundImageDirective,
     TuiTagModule,
     NgIf,
-    TuiRatingModule
+    TuiRatingModule,
+    FormsModule,
+    TuiSvgModule,
+    TuiHintModule,
+    DatePipe
   ]
 })
 export class MoviePageComponent implements OnInit {
@@ -425,6 +439,7 @@ export class MoviePageComponent implements OnInit {
   }
   movie:any;
   private route = inject(ActivatedRoute);
+  details?: {title: string, content: string}[];
 
   getGenreName(genreId: number) {
     return this.genres.find(genre => genre.id === genreId)?.name || ''
@@ -433,6 +448,14 @@ export class MoviePageComponent implements OnInit {
   ngOnInit() {
     const movieId = this.route.snapshot.params['id']
     this.movie = this.json.results.find(movie => movie.id == movieId)
+    this.details = [
+      {title: 'Rating', content: this.movie.vote_average},
+      {title: 'Overview', content: this.movie.overview},
+    ]
+  }
+
+  protected round(rating: number) {
+    return rating.toFixed(1)
   }
 
 
@@ -514,4 +537,10 @@ genres = [
       "name": "Western"
     }
 ]
+    protected readonly tuiIconStar = tuiIconStar;
+  protected readonly tuiIconStarLarge = tuiIconStarLarge;
+  protected readonly tuiIconBookmark = tuiIconBookmark;
+  protected readonly tuiIconBookmarkLarge = tuiIconBookmarkLarge;
+  protected readonly tuiIconHeart = tuiIconHeart;
+  protected readonly tuiIconHeartLarge = tuiIconHeartLarge;
 }
