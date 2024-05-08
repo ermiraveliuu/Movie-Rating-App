@@ -5,13 +5,16 @@
 ></div>
 
 <div class="absolute flex m-10 gap-20 h-[500px]">
+  <!--Movie Image-->
   <img
     class="rounded-lg movie-image "
     [src]="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.backdrop_path" alt="movie-poster-image"
   />
+
+  <!--Movie Details-->
   <div class="flex flex-col h-[520px] justify-between">
     <div>
-      <h1 class="text-4xl font-bold">{{ movie.title }}{{ movie.release_dat}}</h1>
+      <h1 class="text-4xl font-bold">{{ movie.title }}{{ movie.release_dat }}</h1>
       <ng-container *ngFor="let genreId of movie.genre_ids">
         <tui-tag class="mr-1.5 my-2" [value]="getGenreName(genreId)" *ngIf="!!genreId"/>
       </ng-container>
@@ -21,35 +24,54 @@
         <tui-svg [src]="tuiIconHeartLarge" tuiHint="Add to favorites" tuiHintDirection="bottom-right"/>
         <tui-svg [src]="tuiIconStarLarge" tuiHint="Rate" tuiHintDirection="bottom-right"/>
       </div>
-
-
     </div>
 
-   <div class="flex flex-col gap-4">
-     <div>
-       <span class="text-sm ">Rating</span>
-       <p class="text-lg">
-         <tui-rating
-           [max]="1"
-           [ngModel]="1"
-           [iconNormal]="tuiIconStar"
-           [iconFilled]="tuiIconStarLarge"
-           class="rating-icon"
-         />
-       </p>
-     </div>
-     <div>
-       <span class="text-sm">Release Date</span>
-       <p class="text-lg">
-         {{ movie.release_date | date }}
-       </p>
-     </div>
-     <div>
-       <span class="text-sm">Overview</span>
-       <p class="text-lg">
-         {{ movie.overview }}
-       </p>
-     </div>
-   </div>
+    <div class="flex flex-col gap-4">
+      <div>
+        <span class="text-sm ">Rating</span>
+        <div class="flex items-center text-sm gap-1">
+          <tui-rating
+            [max]="1"
+            [ngModel]="1"
+            [iconNormal]="tuiIconStar"
+            [iconFilled]="tuiIconStarLarge"
+            style="color: var(--tui-accent)"
+            class="rating-icon"
+          />
+          <p class="text-lg">{{ round(movie.vote_average) }}</p>
+        </div>
+      </div>
+
+      <div>
+        <span class="text-sm">Release Date</span>
+        <p class="text-lg">
+          {{ movie.release_date | date }}
+        </p>
+      </div>
+
+      <div>
+        <span class="text-sm">Original Language</span>
+        <p class="text-lg">
+          {{ getLanguage(movie.original_language) }}
+        </p>
+      </div>
+
+      <div>
+        <span class="text-sm">Overview</span>
+        <p class="text-lg">
+          {{ movie.overview }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!--Movie Reviews-->
+  <div class="w-[700px]">
+    <tui-scrollbar>
+      <span class="text-sm">Reviews</span>
+      <p class="text-lg">
+        No reviews yet!
+      </p>
+    </tui-scrollbar>
   </div>
 </div>
