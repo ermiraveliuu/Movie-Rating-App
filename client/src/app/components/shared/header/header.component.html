@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center h-full gap-60 h-[36px]">
+<div class="flex justify-between items-center gap-60 h-[36px]">
   <div
     class="flex justify-between items-center h-full gap-1 logo cursor-pointer"
     [routerLink]="'/'"
@@ -16,6 +16,7 @@
       [src]="tuiIconFilter"
       *ngIf="allowFiltering"
       [tuiHint]="'Filter'"
+      (click)="openFilterDialog()"
     />
     @if (darkMode) {
       <tui-svg
