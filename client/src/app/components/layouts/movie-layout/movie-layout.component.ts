@@ -1,14 +1,22 @@
-import { Component, inject } from '@angular/core';
-import { MovieCardComponent } from '../../shared/movie-card/movie-card.component';
-import { JsonPipe, NgForOf } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { JsonPipe, NgForOf } from '@angular/common'
+import { Component, inject } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { TuiScrollbarModule } from '@taiga-ui/core'
+import { HeaderComponent } from '../../shared/header/header.component'
+import { MovieCardComponent } from '../../shared/movie-card/movie-card.component'
 
 @Component({
   selector: 'movie-layout',
   templateUrl: 'movie-layout.component.html',
   styleUrls: ['movie-layout.component.scss'],
   standalone: true,
-  imports: [MovieCardComponent, NgForOf, JsonPipe],
+  imports: [
+    MovieCardComponent,
+    NgForOf,
+    JsonPipe,
+    TuiScrollbarModule,
+    HeaderComponent,
+  ],
 })
 export class MovieLayoutComponent {
   json = {
@@ -1036,10 +1044,10 @@ export class MovieLayoutComponent {
         vote_count: 19259,
       },
     ],
-  };
-  public router = inject(Router);
-  public route = inject(ActivatedRoute);
+  }
+  public router = inject(Router)
+  public route = inject(ActivatedRoute)
   protected goToMovieDetails(movie: any) {
-    this.router.navigate(['movies', movie.id], { relativeTo: this.route });
+    this.router.navigate(['movies', movie.id], { relativeTo: this.route })
   }
 }

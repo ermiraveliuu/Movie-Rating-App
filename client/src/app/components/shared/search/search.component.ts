@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { TuiInputModule } from '@taiga-ui/kit';
-import { TuiTextfieldControllerModule } from '@taiga-ui/core';
-import { tuiIconSearch } from '@taiga-ui/icons';
+import { Component } from '@angular/core'
+import { TuiTextfieldControllerModule } from '@taiga-ui/core'
+import { tuiIconSearch } from '@taiga-ui/icons'
+import { TuiInputModule } from '@taiga-ui/kit'
 
 @Component({
-  selector: 'search',
+  selector: 'app-search',
   templateUrl: 'search.component.html',
   styleUrls: ['search.component.scss'],
   standalone: true,

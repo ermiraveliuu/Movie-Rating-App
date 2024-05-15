@@ -1,21 +1,48 @@
-<div class="flex justify-between items-center h-full gap-60">
-  <div class="flex justify-between items-center h-full gap-1 logo">
+<div class="flex justify-between items-center h-full gap-60 h-[36px]">
+  <div
+    class="flex justify-between items-center h-full gap-1 logo cursor-pointer"
+    [routerLink]="'/'"
+  >
     <tui-svg [src]="tuiIconFilm" />
     <p class="text-sm">Reel Review</p>
   </div>
 
-  <search class="grow w-40" />
+  @if (allowSearch) {
+    <app-search class="grow w-40" />
+  }
 
   <div class="flex justify-between items-center h-full gap-4">
-    <tui-svg [src]="tuiIconFilter" />
-    <tui-svg [src]="tuiIconSun" *ngIf="darkMode" (click)="toggleDarkMode()" />
-    <tui-svg [src]="tuiIconMoon" *ngIf="!darkMode" (click)="toggleDarkMode()" />
+    <tui-svg
+      [src]="tuiIconFilter"
+      *ngIf="allowFiltering"
+      [tuiHint]="'Filter'"
+    />
+    @if (darkMode) {
+      <tui-svg
+        [src]="tuiIconSun"
+        (click)="toggleDarkMode()"
+        [tuiHint]="'Light Mode'"
+      />
+    } @else {
+      <tui-svg
+        [src]="tuiIconMoon"
+        (click)="toggleDarkMode()"
+        [tuiHint]="'Dark Mode'"
+      />
+    }
+
     <ng-container *ngIf="authService.loggedIn">
       <tui-svg [src]="tuiIconBookmark" />
       <tui-svg [src]="tuiIconUser" (click)="authService.toggle()" />
     </ng-container>
+
     <ng-container *ngIf="!authService.loggedIn">
-      <p (click)="authService.toggle()" [routerLink]="'login'">Login</p>
+      <tui-svg
+        (click)="authService.toggle()"
+        [routerLink]="'/login'"
+        [src]="tuiIconLogIn"
+        [tuiHint]="'Log In'"
+      />
     </ng-container>
   </div>
 </div>

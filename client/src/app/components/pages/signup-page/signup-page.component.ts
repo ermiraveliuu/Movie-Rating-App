@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PasswordInputComponent } from '../../shared/inputs/password-input/password-input.component';
-import { TextInputComponent } from '../../shared/inputs/text-input/text-input.component';
-import { TuiButtonModule, TuiLinkModule } from '@taiga-ui/core';
-import { TuiIslandModule } from '@taiga-ui/kit';
+import { Component } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { RouterLink } from '@angular/router'
+import { TuiButtonModule, TuiLinkModule } from '@taiga-ui/core'
+import { TuiIslandModule } from '@taiga-ui/kit'
+import { PasswordInputComponent } from '../../shared/inputs/password-input/password-input.component'
+import { TextInputComponent } from '../../shared/inputs/text-input/text-input.component'
 
 @Component({
   selector: 'signup-page',
@@ -16,6 +17,7 @@ import { TuiIslandModule } from '@taiga-ui/kit';
     TuiButtonModule,
     TuiIslandModule,
     TuiLinkModule,
+    RouterLink,
   ],
 })
 export class SignupPageComponent {
@@ -26,13 +28,13 @@ export class SignupPageComponent {
     email: new FormControl(null, [Validators.required]),
     username: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
-  });
+  })
 
   protected get formControls() {
-    return this.form.controls;
+    return this.form.controls
   }
 
   signup() {
-    console.log(this.form.value);
+    console.log(this.form.value)
   }
 }

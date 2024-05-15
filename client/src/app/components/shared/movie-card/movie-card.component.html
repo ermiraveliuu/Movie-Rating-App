@@ -3,7 +3,9 @@
     class="w-full rounded-t-lg"
     [src]="
       'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.backdrop_path
-    " />
+    "
+    alt="movie-poster"
+  />
   <div class="p-2 flex flex-col gap-3">
     <span class="flex items-center text-sm gap-1">
       <tui-rating
@@ -11,26 +13,30 @@
         [ngModel]="1"
         [iconNormal]="tuiIconStar"
         [iconFilled]="tuiIconStar"
-        class="rating-icon" />
+        class="rating-icon"
+      />
       {{ round(movie.vote_average) }}
     </span>
     <tui-line-clamp
       class="text-sm"
       [content]="movie.title"
       [lineHeight]="20"
-      [linesLimit]="2" />
+      [linesLimit]="2"
+    />
     <button
       tuiButton
       appearance="primary"
       size="s"
-      (click)="rate($event, movie)">
+      (click)="rate($event, movie)"
+    >
       Rate
     </button>
     <button
       tuiButton
       appearance="secondary"
       size="s"
-      (click)="addToWishlist(movie)">
+      (click)="addToWishlist($event, movie)"
+    >
       Add to wishlist
     </button>
   </div>

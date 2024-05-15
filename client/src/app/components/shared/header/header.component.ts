@@ -1,56 +1,59 @@
-import { Component, inject } from '@angular/core';
-import { TuiButtonModule, TuiSvgModule } from '@taiga-ui/core';
-import { SearchComponent } from '../search/search.component';
+import { NgIf } from '@angular/common'
+import { Component, inject } from '@angular/core'
+import { ActivatedRoute, RouterLink } from '@angular/router'
+import { TuiButtonModule, TuiHintModule, TuiSvgModule } from '@taiga-ui/core'
 import {
   tuiIconBookmark,
-  tuiIconCompass,
-  tuiIconCompassLarge,
   tuiIconFilm,
-  tuiIconFilmLarge,
-  tuiIconFilmOutline,
   tuiIconFilter,
+  tuiIconLogIn,
   tuiIconMoon,
   tuiIconSun,
-  tuiIconSunLarge,
   tuiIconUser,
-  tuiIconUserLarge,
-} from '@taiga-ui/icons';
-import { NgIf } from '@angular/common';
-import { DarkModeService } from '../../../services/dark-mode.service';
-import { AuthService } from '../../../services/auth.service';
-import { RouterLink } from '@angular/router';
+} from '@taiga-ui/icons'
+import { AuthService } from '../../../services/auth.service'
+import { DarkModeService } from '../../../services/dark-mode.service'
+import { SearchComponent } from '../search/search.component'
 
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss'],
   standalone: true,
-  imports: [TuiSvgModule, TuiButtonModule, SearchComponent, NgIf, RouterLink],
+  imports: [
+    TuiSvgModule,
+    TuiButtonModule,
+    SearchComponent,
+    NgIf,
+    RouterLink,
+    TuiHintModule,
+  ],
 })
 export class HeaderComponent {
-  protected readonly tuiIconUser = tuiIconUser;
-  protected readonly tuiIconCompass = tuiIconCompass;
+  protected readonly tuiIconUser = tuiIconUser
+  protected readonly allowSearch: boolean
+  protected readonly allowFiltering: boolean
 
-  protected readonly darkModeService = inject(DarkModeService);
-  protected readonly authService = inject(AuthService);
-  loggedIn = false;
+  protected readonly darkModeService = inject(DarkModeService)
+  protected readonly authService = inject(AuthService)
+  protected readonly route = inject(ActivatedRoute)
 
+  constructor() {
+    this.allowSearch = this.route.snapshot.data['allowSearch'] ?? false
+    this.allowFiltering = this.route.snapshot.data['allowFiltering'] ?? false
+  }
   protected get darkMode() {
-    return this.darkModeService.darkMode;
+    return this.darkModeService.darkMode
   }
 
   protected toggleDarkMode() {
-    this.darkModeService.toggleDarkMode();
+    this.darkModeService.toggleDarkMode()
   }
 
-  protected readonly tuiIconSun = tuiIconSun;
-  protected readonly tuiIconUserLarge = tuiIconUserLarge;
-  protected readonly tuiIconCompassLarge = tuiIconCompassLarge;
-  protected readonly tuiIconSunLarge = tuiIconSunLarge;
-  protected readonly tuiIconMoon = tuiIconMoon;
-  protected readonly tuiIconFilter = tuiIconFilter;
-  protected readonly tuiIconFilm = tuiIconFilm;
-  protected readonly tuiIconBookmark = tuiIconBookmark;
-  protected readonly tuiIconFilmOutline = tuiIconFilmOutline;
-  protected readonly tuiIconFilmLarge = tuiIconFilmLarge;
+  protected readonly tuiIconSun = tuiIconSun
+  protected readonly tuiIconMoon = tuiIconMoon
+  protected readonly tuiIconFilter = tuiIconFilter
+  protected readonly tuiIconFilm = tuiIconFilm
+  protected readonly tuiIconBookmark = tuiIconBookmark
+  protected readonly tuiIconLogIn = tuiIconLogIn
 }

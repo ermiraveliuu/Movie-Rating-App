@@ -13,6 +13,7 @@ import {
 } from '@taiga-ui/icons'
 import { TuiRatingModule, TuiTagModule } from '@taiga-ui/kit'
 import { SetBackgroundImageDirective } from '../../../directives/set-background-image.directive'
+import { HeaderComponent } from '../../shared/header/header.component'
 import { MovieCardComponent } from '../../shared/movie-card/movie-card.component'
 
 @Component({
@@ -33,11 +34,15 @@ import { MovieCardComponent } from '../../shared/movie-card/movie-card.component
     TuiHintModule,
     DatePipe,
     TuiScrollbarModule,
+    HeaderComponent,
   ],
 })
 export class MoviePageComponent implements OnInit {
   getLanguage(language: string): string {
-    return this.languages.find(l => l.iso_639_1 === language)?.english_name ?? 'Not Known'
+    return (
+      this.languages.find(l => l.iso_639_1 === language)?.english_name ??
+      'Not Known'
+    )
   }
   json = {
     results: [
@@ -1064,23 +1069,23 @@ export class MoviePageComponent implements OnInit {
         vote_count: 19259,
       },
     ],
-  };
-  movie: any;
-  private route = inject(ActivatedRoute);
-  details?: { title: string; content: string }[];
+  }
+  movie: any
+  private route = inject(ActivatedRoute)
+  details?: { title: string; content: string }[]
 
   getGenreName(genreId: number) {
-    return this.genres.find(genre => genre.id === genreId)?.name || '';
+    return this.genres.find(genre => genre.id === genreId)?.name || ''
   }
 
   ngOnInit() {
-    const movieId = this.route.snapshot.params['id'];
-    this.movie = this.json.results.find(movie => movie.id == movieId);
+    const movieId = this.route.snapshot.params['id']
+    this.movie = this.json.results.find(movie => movie.id == movieId)
 
     this.details = [
       { title: 'Rating', content: this.movie.vote_average },
       { title: 'Overview', content: this.movie.overview },
-    ];
+    ]
 
     const options = {
       method: 'GET',
@@ -1089,8 +1094,8 @@ export class MoviePageComponent implements OnInit {
         Authorization:
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMjQ3MmVjYTMzYmUwMGY4MTIxNTIwZTJjMGYxZWMzNiIsInN1YiI6IjY1Yzc5NzUzYTMxNDQwMDE4NjhkZTBhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VJwTY7gIeaTAKd5vOUdtbfNBjTE2elNIjVbkLbbMM5s',
       },
-    };
-    const movies: any = [];
+    }
+    const movies: any = []
     for (let i = 401; i <= 700; i++) {
       // fetch(`https://api.themoviedb.org/3/movie/top_rated?page=${i}`, options)
       // .then(response => response.json())
@@ -1103,7 +1108,7 @@ export class MoviePageComponent implements OnInit {
   }
 
   protected round(rating: number) {
-    return rating.toFixed(1);
+    return rating.toFixed(1)
   }
 
   languages = [
@@ -2042,7 +2047,7 @@ export class MoviePageComponent implements OnInit {
       english_name: 'Yoruba',
       name: 'Èdè Yorùbá',
     },
-  ];
+  ]
 
   genres = [
     {
@@ -2121,12 +2126,12 @@ export class MoviePageComponent implements OnInit {
       id: 37,
       name: 'Western',
     },
-  ];
+  ]
 
-  protected readonly tuiIconStar = tuiIconStar;
-  protected readonly tuiIconStarLarge = tuiIconStarLarge;
-  protected readonly tuiIconBookmark = tuiIconBookmark;
-  protected readonly tuiIconBookmarkLarge = tuiIconBookmarkLarge;
-  protected readonly tuiIconHeart = tuiIconHeart;
-  protected readonly tuiIconHeartLarge = tuiIconHeartLarge;
+  protected readonly tuiIconStar = tuiIconStar
+  protected readonly tuiIconStarLarge = tuiIconStarLarge
+  protected readonly tuiIconBookmark = tuiIconBookmark
+  protected readonly tuiIconBookmarkLarge = tuiIconBookmarkLarge
+  protected readonly tuiIconHeart = tuiIconHeart
+  protected readonly tuiIconHeartLarge = tuiIconHeartLarge
 }

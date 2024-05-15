@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { TuiButtonModule } from '@taiga-ui/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, inject } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { TuiButtonModule, TuiDialogContext } from '@taiga-ui/core'
+import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus'
 
 @Component({
   selector: 'unauthorized-dialog',
@@ -10,10 +11,20 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [TuiButtonModule],
 })
 export class UnauthorizedDialogComponent {
-  public router = inject(Router);
-  public route = inject(ActivatedRoute);
+  public router = inject(Router)
+  public route = inject(ActivatedRoute)
+
+  constructor(
+    @Inject(POLYMORPHEUS_CONTEXT)
+    private readonly context: TuiDialogContext<any, any>,
+  ) {}
 
   goToLogin() {
-    this.router.navigate(['login'], { relativeTo: this.route });
+    this.close()
+    this.router.navigate(['login'], { relativeTo: this.route })
+  }
+
+  close() {
+    this.context.completeWith(null)
   }
 }
