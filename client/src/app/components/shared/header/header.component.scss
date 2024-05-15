@@ -5,12 +5,12 @@
 }
 
 .logo {
-
   tui-svg {
     color: var(--tui-accent);
   }
 }
 
-tui-svg, p {
+tui-svg,
+p {
   font-size: 18px;
 }

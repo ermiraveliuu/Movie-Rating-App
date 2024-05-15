@@ -1,8 +1,15 @@
-import {Directive, ElementRef, inject, Input, OnInit, Renderer2} from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 
 @Directive({
   selector: '[setBackgroundImage]',
-  standalone: true
+  standalone: true,
 })
 export class SetBackgroundImageDirective implements OnInit {
   @Input() imageUrl?: string;
@@ -19,11 +26,9 @@ export class SetBackgroundImageDirective implements OnInit {
       ['backgroundImage', `url(${this.imageUrl})`],
       ['background-repeat', 'no-repeat'],
       ['background-size', 'cover'],
-    ])
+    ]);
     this.styles.forEach((value, key) => {
-      this.renderer.setStyle(
-        this.elementRef.nativeElement, key, value
-      )
-    })
+      this.renderer.setStyle(this.elementRef.nativeElement, key, value);
+    });
   }
 }

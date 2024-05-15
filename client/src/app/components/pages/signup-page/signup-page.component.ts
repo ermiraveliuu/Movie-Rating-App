@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {PasswordInputComponent} from "../../shared/inputs/password-input/password-input.component";
-import {TextInputComponent} from "../../shared/inputs/text-input/text-input.component";
-import {TuiButtonModule, TuiLinkModule} from "@taiga-ui/core";
-import {TuiIslandModule} from "@taiga-ui/kit";
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PasswordInputComponent } from '../../shared/inputs/password-input/password-input.component';
+import { TextInputComponent } from '../../shared/inputs/text-input/text-input.component';
+import { TuiButtonModule, TuiLinkModule } from '@taiga-ui/core';
+import { TuiIslandModule } from '@taiga-ui/kit';
 
 @Component({
   selector: 'signup-page',
@@ -15,8 +15,8 @@ import {TuiIslandModule} from "@taiga-ui/kit";
     TextInputComponent,
     TuiButtonModule,
     TuiIslandModule,
-    TuiLinkModule
-  ]
+    TuiLinkModule,
+  ],
 })
 export class SignupPageComponent {
   private readonly form = new FormGroup({
@@ -25,8 +25,8 @@ export class SignupPageComponent {
     //TODO: add email pattern validator
     email: new FormControl(null, [Validators.required]),
     username: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required])
-  })
+    password: new FormControl(null, [Validators.required]),
+  });
 
   protected get formControls() {
     return this.form.controls;

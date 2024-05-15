@@ -1,34 +1,51 @@
 <div
   class="w-full blur-2xl gap-6 absolute h-[500px] opacity-50 mt-8 ml-80"
   setBackgroundImage
-  [imageUrl]="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.poster_path"
-></div>
+  [imageUrl]="
+    'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.poster_path
+  "></div>
 
 <div class="absolute flex m-10 gap-20 h-[500px]">
   <!--Movie Image-->
   <img
-    class="rounded-lg movie-image "
-    [src]="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.backdrop_path" alt="movie-poster-image"
-  />
-
+    class="rounded-lg movie-image"
+    [src]="
+      'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.backdrop_path
+    "
+    alt="movie-poster-image" />
   <!--Movie Details-->
   <div class="flex flex-col h-[520px] justify-between">
     <div>
-      <h1 class="text-4xl font-bold">{{ movie.title }}{{ movie.release_dat }}</h1>
+      <h1 class="text-4xl font-bold">
+        {{ movie.title }}{{ movie.release_dat }}
+      </h1>
+
       <ng-container *ngFor="let genreId of movie.genre_ids">
-        <tui-tag class="mr-1.5 my-2" [value]="getGenreName(genreId)" *ngIf="!!genreId"/>
+        <tui-tag
+          class="mr-1.5 my-2"
+          [value]="getGenreName(genreId)"
+          *ngIf="!!genreId" />
       </ng-container>
 
       <div class="flex gap-2 mt-4">
-        <tui-svg [src]="tuiIconBookmarkLarge" tuiHint="Add to wishlist" tuiHintDirection="bottom-right"/>
-        <tui-svg [src]="tuiIconHeartLarge" tuiHint="Add to favorites" tuiHintDirection="bottom-right"/>
-        <tui-svg [src]="tuiIconStarLarge" tuiHint="Rate" tuiHintDirection="bottom-right"/>
+        <tui-svg
+          [src]="tuiIconBookmarkLarge"
+          tuiHint="Add to wishlist"
+          tuiHintDirection="bottom-right" />
+        <tui-svg
+          [src]="tuiIconHeartLarge"
+          tuiHint="Add to favorites"
+          tuiHintDirection="bottom-right" />
+        <tui-svg
+          [src]="tuiIconStarLarge"
+          tuiHint="Rate"
+          tuiHintDirection="bottom-right" />
       </div>
     </div>
 
     <div class="flex flex-col gap-4">
       <div>
-        <span class="text-sm ">Rating</span>
+        <span class="text-sm">Rating</span>
         <div class="flex items-center text-sm gap-1">
           <tui-rating
             [max]="1"
@@ -36,8 +53,7 @@
             [iconNormal]="tuiIconStar"
             [iconFilled]="tuiIconStarLarge"
             style="color: var(--tui-accent)"
-            class="rating-icon"
-          />
+            class="rating-icon" />
           <p class="text-lg">{{ round(movie.vote_average) }}</p>
         </div>
       </div>
@@ -69,9 +85,7 @@
   <div class="w-[700px]">
     <tui-scrollbar>
       <span class="text-sm">Reviews</span>
-      <p class="text-lg">
-        No reviews yet!
-      </p>
+      <p class="text-lg">No reviews yet!</p>
     </tui-scrollbar>
   </div>
 </div>

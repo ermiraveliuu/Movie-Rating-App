@@ -1,6 +1,6 @@
-import {Component, inject} from "@angular/core";
-import {TuiButtonModule, TuiSvgModule} from "@taiga-ui/core";
-import {SearchComponent} from "../search/search.component";
+import { Component, inject } from '@angular/core';
+import { TuiButtonModule, TuiSvgModule } from '@taiga-ui/core';
+import { SearchComponent } from '../search/search.component';
 import {
   tuiIconBookmark,
   tuiIconCompass,
@@ -13,28 +13,21 @@ import {
   tuiIconSun,
   tuiIconSunLarge,
   tuiIconUser,
-  tuiIconUserLarge
-} from "@taiga-ui/icons";
-import {NgIf} from "@angular/common";
-import {DarkModeService} from "../../../services/dark-mode.service";
-import {AuthService} from "../../../services/auth.service";
-import {RouterLink} from "@angular/router";
+  tuiIconUserLarge,
+} from '@taiga-ui/icons';
+import { NgIf } from '@angular/common';
+import { DarkModeService } from '../../../services/dark-mode.service';
+import { AuthService } from '../../../services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss'],
   standalone: true,
-  imports: [
-    TuiSvgModule,
-    TuiButtonModule,
-    SearchComponent,
-    NgIf,
-    RouterLink,
-  ]
+  imports: [TuiSvgModule, TuiButtonModule, SearchComponent, NgIf, RouterLink],
 })
 export class HeaderComponent {
-
   protected readonly tuiIconUser = tuiIconUser;
   protected readonly tuiIconCompass = tuiIconCompass;
 

@@ -1,10 +1,10 @@
-import {Component} from "@angular/core";
-import {TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
-import {TextInputComponent} from "../../shared/inputs/text-input/text-input.component";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {PasswordInputComponent} from "../../shared/inputs/password-input/password-input.component";
-import {TuiButtonModule, TuiLinkModule} from "@taiga-ui/core";
-import {RouterLink} from "@angular/router";
+import { Component } from '@angular/core';
+import { TuiInputModule, TuiIslandModule } from '@taiga-ui/kit';
+import { TextInputComponent } from '../../shared/inputs/text-input/text-input.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PasswordInputComponent } from '../../shared/inputs/password-input/password-input.component';
+import { TuiButtonModule, TuiLinkModule } from '@taiga-ui/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'login-page',
@@ -18,15 +18,14 @@ import {RouterLink} from "@angular/router";
     PasswordInputComponent,
     TuiButtonModule,
     TuiLinkModule,
-    RouterLink
-  ]
+    RouterLink,
+  ],
 })
 export class LoginPageComponent {
-
   private readonly form = new FormGroup({
     username: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required])
-  })
+    password: new FormControl(null, [Validators.required]),
+  });
 
   protected get formControls() {
     return this.form.controls;

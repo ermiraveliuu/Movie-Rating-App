@@ -1,4 +1,4 @@
-import {NgDompurifySanitizer} from "@tinkoff/ng-dompurify";
+import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import {
   TUI_SANITIZER,
   TuiAlertModule,
@@ -6,24 +6,34 @@ import {
   TuiModeModule,
   TuiRootModule,
   TuiSvgModule,
-  TuiThemeNightModule
-} from "@taiga-ui/core";
-import {Component, inject, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {Title} from "@angular/platform-browser";
-import {TuiAccordionModule} from "@taiga-ui/kit";
-import {HeaderComponent} from "./components/shared/header/header.component";
-import {NgIf} from "@angular/common";
-import {DarkModeService} from "./services/dark-mode.service";
+  TuiThemeNightModule,
+} from '@taiga-ui/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { TuiAccordionModule } from '@taiga-ui/kit';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { NgIf } from '@angular/common';
+import { DarkModeService } from './services/dark-mode.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TuiRootModule, TuiDialogModule, TuiAlertModule, TuiAccordionModule, HeaderComponent, TuiSvgModule, TuiThemeNightModule,
-    TuiModeModule, NgIf,],
+  imports: [
+    RouterOutlet,
+    TuiRootModule,
+    TuiDialogModule,
+    TuiAlertModule,
+    TuiAccordionModule,
+    HeaderComponent,
+    TuiSvgModule,
+    TuiThemeNightModule,
+    TuiModeModule,
+    NgIf,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-    providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}]
+  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
 })
 export class AppComponent implements OnInit {
   private readonly title = inject(Title);
@@ -34,6 +44,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle('Reel Review')
+    this.title.setTitle('Reel Review');
   }
 }
