@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MovieCardComponent } from '../../shared/movie-card/movie-card.component';
-import { DatePipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { SetBackgroundImageDirective } from '../../../directives/set-background-image.directive';
-import { TuiRatingModule, TuiTagModule } from '@taiga-ui/kit';
+import { DatePipe, JsonPipe, NgForOf, NgIf } from '@angular/common'
+import { Component, inject, OnInit } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
+import { TuiHintModule, TuiScrollbarModule, TuiSvgModule } from '@taiga-ui/core'
 import {
   tuiIconBookmark,
   tuiIconBookmarkLarge,
@@ -11,13 +10,10 @@ import {
   tuiIconHeartLarge,
   tuiIconStar,
   tuiIconStarLarge,
-} from '@taiga-ui/icons';
-import { FormsModule } from '@angular/forms';
-import {
-  TuiHintModule,
-  TuiScrollbarModule,
-  TuiSvgModule,
-} from '@taiga-ui/core';
+} from '@taiga-ui/icons'
+import { TuiRatingModule, TuiTagModule } from '@taiga-ui/kit'
+import { SetBackgroundImageDirective } from '../../../directives/set-background-image.directive'
+import { MovieCardComponent } from '../../shared/movie-card/movie-card.component'
 
 @Component({
   selector: 'movie-page',
@@ -41,9 +37,7 @@ import {
 })
 export class MoviePageComponent implements OnInit {
   getLanguage(language: string): string {
-    return (
-      this.languages.find(l => l.iso_639_1 === language)?.name ?? 'Not Known'
-    );
+    return this.languages.find(l => l.iso_639_1 === language)?.english_name ?? 'Not Known'
   }
   json = {
     results: [
@@ -1082,6 +1076,7 @@ export class MoviePageComponent implements OnInit {
   ngOnInit() {
     const movieId = this.route.snapshot.params['id'];
     this.movie = this.json.results.find(movie => movie.id == movieId);
+
     this.details = [
       { title: 'Rating', content: this.movie.vote_average },
       { title: 'Overview', content: this.movie.overview },

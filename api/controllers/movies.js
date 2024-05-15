@@ -27,6 +27,18 @@ const createMovie = async (req, res) => {
   }
 };
 
+const createMovies = async (req, res) => {
+  try {
+    for(movie of req.body) {
+      await Movie.create(req.body)
+    }
+    // const movie = await Movie.create(req.body)
+    res.status(201).json(movie);
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
+};
+
 const updateMovie = (req, res) => {
   res.send("Update movie");
 };
