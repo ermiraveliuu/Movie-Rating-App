@@ -1,8 +1,15 @@
-<label [tuiLabel]="(name | titlecase) + (control.hasValidator(Validators.required) ? '*' : null)">
-  <tui-input [formControl]="control | formControl" tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true">
-    Enter {{name | titlecase}}...
+<label
+  [tuiLabel]="
+    (name | titlecase) +
+    (control.hasValidator(Validators.required) ? '*' : null)
+  ">
+  <tui-input
+    [formControl]="control | formControl"
+    tuiTextfieldSize="m"
+    [tuiTextfieldLabelOutside]="true">
+    Enter {{ name | titlecase }}...
   </tui-input>
 </label>
-<tui-error *ngIf="control.hasError('required') && control.touched">
-  {{name | titlecase}} is required
-</tui-error>
+<error *ngIf="control.hasError('required') && control.touched">
+  {{ name | titlecase }} is required
+</error>

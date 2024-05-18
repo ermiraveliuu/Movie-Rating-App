@@ -2,15 +2,18 @@
   display: block;
   background-color: var(--tui-base-02);
   padding: 12px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .logo {
-
   tui-svg {
     color: var(--tui-accent);
   }
 }
 
-tui-svg, p {
+tui-svg,
+p {
   font-size: 18px;
 }

@@ -3,7 +3,7 @@ const Movie = require('../models/Movie')
 const getAllMovies = async (req, res) => {
   try {
     const movies = await Movie.find({})
-    res.status(201).json({movies});
+    res.status(201).json(movies);
   } catch (e) {
     res.status(500).json({message: e})
   }
@@ -11,12 +11,8 @@ const getAllMovies = async (req, res) => {
 
 const getMovie = async (req, res) => {
   try {
-    const {id: movieId} = req.params;
-    const movie = await Movie.findOne({_id: movieId})
-    if(!movie) {
-      return res.status(404).json({msg: `No movie with id: ${movieId}`})
-    }
-    res.status(200).json({movie});
+    const movies = await Movie.find({id: req.params.id})
+    res.status(201).json(movies);
   } catch (e) {
     res.status(500).json({message: e})
   }
@@ -26,39 +22,29 @@ const createMovie = async (req, res) => {
   try {
     const movie = await Movie.create(req.body)
     res.status(201).json(movie);
-  } catch (e) {
-    res.status(500).json({message: e})
+  } catch (error) {
+    res.status(500).json({message: error})
   }
 };
 
-const updateMovie = async (req, res) => {
+const createMovies = async (req, res) => {
   try {
-    const {id: movieId} = req.params
-    const movie = await Movie.findOneAndUpdate({_id:movieId}, req.body, {
-      new: true,
-      runValidators: true
-    })
-
-    if(!movie) {
-      return res.status(404).json({msg: `No movie with id: ${movieId}`})
+    for(movie of req.body) {
+      await Movie.create(req.body)
     }
-    res.status(200).json({})
-  } catch (e) {
-    res.status(500).json({message: e})
+    // const movie = await Movie.create(req.body)
+    res.status(201).json(movie);
+  } catch (error) {
+    res.status(500).json({message: error})
   }
 };
 
-const deleteMovie = async (req, res) => {
-  try {
-    const {id: movieId} = req.params;
-    const movie = await Movie.findOneAndDelete({_id:movieId})
-    if(!movie) {
-      return res.status(404).json({msg: `No movie with id: ${movieId}`})
-    }
-    res.status(200).send();
-  } catch (e) {
-    res.status(500).json({message: e})
-  }
+const updateMovie = (req, res) => {
+  res.send("Update movie");
+};
+
+const deleteMovie = (req, res) => {
+  res.send("Delete movie");
 };
 
 module.exports = {
