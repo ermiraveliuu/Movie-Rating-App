@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http'
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
+
 import {
   TUI_SANITIZER,
   TuiAlertModule,
@@ -30,6 +32,7 @@ import { DarkModeService } from './services/dark-mode.service';
     TuiThemeNightModule,
     TuiModeModule,
     NgIf,
+    HttpClientModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

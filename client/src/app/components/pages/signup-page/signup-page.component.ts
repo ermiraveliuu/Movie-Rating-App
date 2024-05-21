@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Component, inject } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { RouterLink } from '@angular/router'
 import { TuiButtonModule, TuiLinkModule } from '@taiga-ui/core'
@@ -30,11 +31,17 @@ export class SignupPageComponent {
     password: new FormControl(null, [Validators.required]),
   })
 
+  private readonly http = inject(HttpClient);
+
+
   protected get formControls() {
     return this.form.controls
   }
 
   signup() {
+    console.log(1)
+    this.http.post('http://localhost:3000/api/v1/auth/register', this.form.value).subscribe(console.log)
+
     console.log(this.form.value)
   }
 }

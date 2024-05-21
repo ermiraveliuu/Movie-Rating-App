@@ -4,21 +4,13 @@
       <span>Sign Up</span>
     </p>
     <div class="flex w-full gap-2">
-      <text-input
-        name="First Name"
-        [control]="formControls.firstName"
-        class="w-full"
-      />
-      <text-input
-        name="Last Name"
-        [control]="formControls.lastName"
-        class="w-full"
-      />
+      <text-input name="First Name" [control]="formControls.firstName" class="w-full" />
+      <text-input name="Last Name" [control]="formControls.lastName" class="w-full" />
     </div>
     <text-input name="email" [control]="formControls.email" />
     <text-input name="username" [control]="formControls.username" />
     <password-input name="password" [control]="formControls.password" />
-    <button tuiButton class="mt-4 w-full">Sign up</button>
+    <button tuiButton class="mt-4 w-full" (click)="signup()">Sign up</button>
     <p>Already a user? <a tuiLink [routerLink]="['../login']">Log in</a></p>
   </tui-island>
 </div>
