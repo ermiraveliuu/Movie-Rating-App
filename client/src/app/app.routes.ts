@@ -3,6 +3,7 @@ import { MovieLayoutComponent } from './components/layouts/movie-layout/movie-la
 import { LoginPageComponent } from './components/pages/login-page/login-page.component'
 import { MoviePageComponent } from './components/pages/movie-page/movie-page.component'
 import { SignupPageComponent } from './components/pages/signup-page/signup-page.component'
+import { UserPageComponent } from './components/pages/user-page/user-page.component'
 
 export const routes: Routes = [
   {
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'movies/:id', component: MoviePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
+  { path: 'user', component: UserPageComponent }
 ]

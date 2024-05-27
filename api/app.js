@@ -3,6 +3,7 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken")
 const passport = require("passport");
 const movies = require("./routes/movies.js");
+const auth = require("./routes/auth-routes.js");
 const connectDB = require('./db/connect');
 const userModel = require("./models/User");
 const { hashSync, compareSync } = require('bcrypt')

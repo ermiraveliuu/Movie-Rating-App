@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, inject } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { RouterLink } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { TuiButtonModule, TuiLinkModule } from '@taiga-ui/core'
 import { TuiIslandModule } from '@taiga-ui/kit'
+import { iif } from 'rxjs'
+import { AlertService } from '../../../services/alert.service'
+import { AuthService, LoginInfo } from '../../../services/auth.service'
 import { PasswordInputComponent } from '../../shared/inputs/password-input/password-input.component'
 import { TextInputComponent } from '../../shared/inputs/text-input/text-input.component'
 
@@ -12,14 +15,7 @@ import { TextInputComponent } from '../../shared/inputs/text-input/text-input.co
   templateUrl: 'signup-page.component.html',
   styleUrls: ['signup-page.component.scss'],
   standalone: true,
-  imports: [
-    PasswordInputComponent,
-    TextInputComponent,
-    TuiButtonModule,
-    TuiIslandModule,
-    TuiLinkModule,
-    RouterLink,
-  ],
+  imports: [PasswordInputComponent, TextInputComponent, TuiButtonModule, TuiIslandModule, TuiLinkModule, RouterLink],
 })
 export class SignupPageComponent {
   private readonly form = new FormGroup({
@@ -30,18 +26,34 @@ export class SignupPageComponent {
     username: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
   })
-
-  private readonly http = inject(HttpClient);
-
+  private readonly authService = inject(AuthService)
+  private readonly alertService = inject(AlertService)
+  private readonly router = inject(Router)
 
   protected get formControls() {
     return this.form.controls
   }
 
   signup() {
-    console.log(1)
-    this.http.post('http://localhost:3000/api/v1/auth/register', this.form.value).subscribe(console.log)
+    this.authService.signup(this.form.value).subscribe({
+      next: res => this.onSuccessfulSignup(),
+      error: res => this.alertService.showMessage(res.error.message, 'error')
+      })
+  }
 
-    console.log(this.form.value)
+  onSuccessfulSignup() {
+    const loginInfo = {
+      username: this.form.value.username,
+      password: this.form.value.password,
+    }
+    this.authService.login(loginInfo).subscribe({
+      next: res => {
+        this.authService.setLocalStorage(res)
+        this.router.navigate(['/'])
+      },
+      error: res => {
+        this.alertService.showMessage(res.error.message, 'error')
+      },
+    })
   }
 }

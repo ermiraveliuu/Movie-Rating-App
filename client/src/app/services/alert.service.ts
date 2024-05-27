@@ -8,10 +8,10 @@ export class AlertService {
   ) {}
 
   showSuccessMessage() {
-    this.alerts.open('Action Completed Successfully!', { status: 'success' });
+    this.alerts.open('Action Completed Successfully!', { status: 'success' }).subscribe();
   }
 
   showMessage(message: string, status: TuiNotificationT) {
-    this.alerts.open(message, { status });
+     this.alerts.open(message, { status }).subscribe();
   }
 }

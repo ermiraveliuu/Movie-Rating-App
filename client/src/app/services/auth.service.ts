@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
+import moment from 'moment'
+import { filter, tap } from 'rxjs'
 import { UnauthorizedDialogComponent } from '../components/shared/unauthorized-dialog/unauthorized-dialog.component'
 import { DialogService } from './dialog.service'
 
@@ -6,22 +9,41 @@ import { DialogService } from './dialog.service'
   providedIn: 'root',
 })
 export class AuthService {
-  private _loggedIn: boolean = false
-  private readonly dialogService: DialogService = inject(DialogService)
+  private readonly dialogService: DialogService = inject(DialogService);
+  public readonly http: HttpClient = inject(HttpClient);
 
   public get loggedIn() {
-    return this._loggedIn
+    const expiration = localStorage.getItem('expires');
+    if(!expiration) return false;
+    const expiresAt = JSON.parse(expiration);
+    return moment().isBefore(expiresAt);
   }
 
-  public toggle() {
-    this._loggedIn = !this.loggedIn
+  public setLocalStorage(response: any) {
+    const expires = moment().add(response.expiresIn)
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('expires', JSON.stringify(expires.valueOf()));
   }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiresIn');
+  }
+
+  login(info: any) {
+    return this.http.post('/auth/login', info);
+  }
+
+  signup(info: any) {
+   return this.http.post('/auth/register', info)
+  }
+
 
   isAuthorized(): boolean {
     if (!this.loggedIn) {
       this.dialogService
         .open(UnauthorizedDialogComponent, {
-          label: '',
+          label: 'Unauthorized',
           size: 's',
         })
         .subscribe()
@@ -29,4 +51,9 @@ export class AuthService {
     }
     return true
   }
+}
+
+export interface LoginInfo {
+  username: string;
+  password: string;
 }
