@@ -11,7 +11,7 @@ const { hashSync, compareSync } = require('bcrypt')
 require('dotenv').config()
 require('./controllers/passport')
 
-const port = 3000;
+const port = 3001;
 const app = express();
 
 
@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 const init = async () => {
     try {
         await connectDB(process.env.MONGO_URI);
-        app.listen(3000, () => console.log(`server is listening on port ${port}`));
+        app.listen(port, () => console.log(`server is listening on port ${port}`));
     } catch (error) {
         console.log(error);
     }

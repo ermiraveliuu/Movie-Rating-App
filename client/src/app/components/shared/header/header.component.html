@@ -15,10 +15,9 @@
     } @else {
       <tui-svg [src]="tuiIconMoon" (click)="toggleDarkMode()" [tuiHint]="'Dark Mode'" />
     }
-
     <ng-container *ngIf="authService.loggedIn">
       <tui-svg [src]="tuiIconBookmark" />
-      <tui-svg [src]="tuiIconUser" />
+      <tui-avatar [text]="'E'" size="xs"/>
     </ng-container>
 
     <ng-container *ngIf="!authService.loggedIn">

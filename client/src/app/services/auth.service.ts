@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import moment from 'moment'
-import { filter, tap } from 'rxjs'
 import { UnauthorizedDialogComponent } from '../components/shared/unauthorized-dialog/unauthorized-dialog.component'
 import { DialogService } from './dialog.service'
 
@@ -16,10 +15,11 @@ export class AuthService {
     const expiration = localStorage.getItem('expires');
     if(!expiration) return false;
     const expiresAt = JSON.parse(expiration);
-    return moment().isBefore(expiresAt);
+    const date = moment().date()
+    return moment(date).isBefore(expiresAt);
   }
 
-  public setLocalStorage(response: any) {
+  public setLocalStorage(response) {
     const expires = moment().add(response.expiresIn)
     localStorage.setItem('token', response.token);
     localStorage.setItem('expires', JSON.stringify(expires.valueOf()));
@@ -27,7 +27,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('expiresIn');
+    localStorage.removeItem('expires');
   }
 
   login(info: any) {

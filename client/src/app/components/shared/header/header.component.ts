@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core'
 import { ActivatedRoute, RouterLink } from '@angular/router'
 import { TuiButtonModule, TuiHintModule, TuiSvgModule } from '@taiga-ui/core'
 import { tuiIconBookmark, tuiIconFilm, tuiIconFilter, tuiIconLogIn, tuiIconMoon, tuiIconSun, tuiIconUser } from '@taiga-ui/icons'
+import { TuiAvatarModule } from '@taiga-ui/kit'
 import { AuthService } from '../../../services/auth.service'
 import { DarkModeService } from '../../../services/dark-mode.service'
 import { DialogService } from '../../../services/dialog.service'
@@ -14,7 +15,7 @@ import { SearchComponent } from '../search/search.component'
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss'],
   standalone: true,
-  imports: [TuiSvgModule, TuiButtonModule, SearchComponent, NgIf, RouterLink, TuiHintModule],
+  imports: [TuiSvgModule, TuiButtonModule, SearchComponent, NgIf, RouterLink, TuiHintModule, TuiAvatarModule],
 })
 export class HeaderComponent {
   protected readonly tuiIconUser = tuiIconUser
