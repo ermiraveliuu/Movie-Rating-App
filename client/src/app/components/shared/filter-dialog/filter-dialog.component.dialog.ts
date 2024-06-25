@@ -1,8 +1,25 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core'
+import { NgForOf } from '@angular/common'
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { TuiButtonModule, TuiDialogContext, TuiLabelModule, TuiTextfieldControllerModule } from '@taiga-ui/core'
-import { TuiDataListWrapperModule, TuiMultiSelectModule } from '@taiga-ui/kit'
+import {
+  TuiButtonModule,
+  TuiDataListModule,
+  TuiDialogContext,
+  TuiLabelModule,
+  TuiTextfieldControllerModule,
+} from '@taiga-ui/core'
+import {
+  TuiDataListWrapperModule,
+  TuiFilterByInputPipeModule,
+  TuiMultiSelectModule,
+  TuiStringifyContentPipeModule,
+} from '@taiga-ui/kit'
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus'
+import { forkJoin } from 'rxjs'
+import { Genre } from '../../../models/genre.model'
+import { Language } from '../../../models/language.model'
+import { GenresService } from '../../../services/genres.service'
+import { LanguageService } from '../../../services/language.service'
 
 @Component({
   selector: 'filter-dialog',
@@ -10,247 +27,53 @@ import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus'
   styleUrls: ['./filter-dialog.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TuiMultiSelectModule, TuiDataListWrapperModule, ReactiveFormsModule, TuiTextfieldControllerModule, TuiLabelModule, TuiButtonModule],
+  imports: [
+    TuiMultiSelectModule,
+    TuiDataListWrapperModule,
+    ReactiveFormsModule,
+    TuiTextfieldControllerModule,
+    TuiLabelModule,
+    TuiButtonModule,
+    TuiStringifyContentPipeModule,
+    TuiFilterByInputPipeModule,
+    TuiDataListModule,
+    NgForOf,
+  ],
 })
-export class FilterDialogComponent {
-  constructor(
-    @Inject(POLYMORPHEUS_CONTEXT)
-    private readonly context: TuiDialogContext<any, any>,
-  ) {}
-
+export class FilterDialogComponent implements OnInit {
   protected readonly form = new FormGroup({
     genre: new FormControl(null),
     language: new FormControl(null),
   })
+  protected genres: Genre[] = [];
+  protected languages: Language[] = [];
 
-  genres = [
-    'Action',
-    'Adventure',
-    'Animation',
-    'Comedy',
-    'Crime',
-    'Documentary',
-    'Drama',
-    'Family',
-    'Fantasy',
-    'History',
-    'Horror',
-    'Music',
-    'Mystery',
-    'Romance',
-    'Science Fiction',
-    'TV Movie',
-    'Thriller',
-    'War',
-    'Western',
-  ]
+  constructor(
+    @Inject(POLYMORPHEUS_CONTEXT)
+    private readonly context: TuiDialogContext<any, any>,
+    private genresService: GenresService,
+    private languageService: LanguageService
+  ) {}
 
-  languages = [
-    'No Language',
-    'Afar',
-    'Afrikaans',
-    'Akan',
-    'Aragonese',
-    'Assamese',
-    'Avaric',
-    'Avestan',
-    'Aymara',
-    'Azerbaijani',
-    'Bashkir',
-    'Bambara',
-    'Bislama',
-    'Tibetan',
-    'Breton',
-    'Catalan',
-    'Czech',
-    'Chechen',
-    'Slavic',
-    'Chuvash',
-    'Cornish',
-    'Corsican',
-    'Cree',
-    'Welsh',
-    'Danish',
-    'German',
-    'Divehi',
-    'Dzongkha',
-    'Esperanto',
-    'Estonian',
-    'Basque',
-    'Faroese',
-    'Fijian',
-    'Finnish',
-    'French',
-    'Frisian',
-    'Fulah',
-    'Gaelic',
-    'Irish',
-    'Galician',
-    'Manx',
-    'Guarani',
-    'Gujarati',
-    'Haitian; Haitian Creole',
-    'Hausa',
-    'Serbo-Croatian',
-    'Herero',
-    'Hiri Motu',
-    'Croatian',
-    'Hungarian',
-    'Igbo',
-    'Ido',
-    'Yi',
-    'Inuktitut',
-    'Interlingue',
-    'Interlingua',
-    'Indonesian',
-    'Inupiaq',
-    'Icelandic',
-    'Italian',
-    'Javanese',
-    'Japanese',
-    'Kalaallisut',
-    'Kannada',
-    'Kashmiri',
-    'Kanuri',
-    'Kazakh',
-    'Khmer',
-    'Kikuyu',
-    'Kinyarwanda',
-    'Kirghiz',
-    'Komi',
-    'Kongo',
-    'Korean',
-    'Kuanyama',
-    'Kurdish',
-    'Lao',
-    'Latin',
-    'Latvian',
-    'Limburgish',
-    'Lingala',
-    'Lithuanian',
-    'Letzeburgesch',
-    'Luba-Katanga',
-    'Ganda',
-    'Marshall',
-    'Malayalam',
-    'Marathi',
-    'Malagasy',
-    'Maltese',
-    'Moldavian',
-    'Mongolian',
-    'Maori',
-    'Malay',
-    'Burmese',
-    'Nauru',
-    'Navajo',
-    'Ndebele',
-    'Ndebele',
-    'Ndonga',
-    'Nepali',
-    'Dutch',
-    'Norwegian Nynorsk',
-    'Norwegian Bokmål',
-    'Norwegian',
-    'Chichewa; Nyanja',
-    'Occitan',
-    'Ojibwa',
-    'Oriya',
-    'Oromo',
-    'Ossetian; Ossetic',
-    'Pali',
-    'Polish',
-    'Portuguese',
-    'Quechua',
-    'Raeto-Romance',
-    'Romanian',
-    'Rundi',
-    'Russian',
-    'Sango',
-    'Sanskrit',
-    'Sinhalese',
-    'Slovak',
-    'Slovenian',
-    'Northern Sami',
-    'Samoan',
-    'Shona',
-    'Sindhi',
-    'Somali',
-    'Sotho',
-    'Spanish',
-    'Albanian',
-    'Sardinian',
-    'Serbian',
-    'Swati',
-    'Sundanese',
-    'Swahili',
-    'Swedish',
-    'Tahitian',
-    'Tamil',
-    'Tatar',
-    'Telugu',
-    'Tajik',
-    'Tagalog',
-    'Thai',
-    'Tigrinya',
-    'Tonga',
-    'Tswana',
-    'Tsonga',
-    'Turkmen',
-    'Turkish',
-    'Twi',
-    'Uighur',
-    'Ukrainian',
-    'Urdu',
-    'Uzbek',
-    'Venda',
-    'Vietnamese',
-    'Volapük',
-    'Walloon',
-    'Wolof',
-    'Xhosa',
-    'Yiddish',
-    'Zhuang',
-    'Zulu',
-    'Abkhazian',
-    'Mandarin',
-    'Pushto',
-    'Amharic',
-    'Arabic',
-    'Bulgarian',
-    'Cantonese',
-    'Macedonian',
-    'Greek',
-    'Persian',
-    'Hebrew',
-    'Hindi',
-    'Armenian',
-    'English',
-    'Ewe',
-    'Georgian',
-    'Punjabi',
-    'Bengali',
-    'Bosnian',
-    'Chamorro',
-    'Belarusian',
-    'Yoruba',
-  ]
+  ngOnInit() {
+    forkJoin(
+      {genres: this.genresService.getGenres(), languages: this.languageService.getLanguages()}
+    ).subscribe({
+      next: ({genres, languages}) => {
+        this.genres = genres.data;
+        this.languages = languages.data;
+      }
+    })
+  }
+
+  readonly stringify = (item: Genre): string => `${item.name}`
 
   save() {
+    console.log(this.form.value)
     this.context.completeWith(null)
   }
 
   close() {
     this.context.completeWith(null)
   }
-
-  protected readonly ITEMS = ITEMS
 }
-
-const ITEMS: readonly string[] = [
-  'Luke Skywalker',
-  'Leia Organa Solo',
-  'Darth Vader',
-  'Han Solo',
-  'Obi-Wan Kenobi',
-  'Yoda',
-];

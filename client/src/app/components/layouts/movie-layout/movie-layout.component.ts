@@ -1,7 +1,8 @@
 import { JsonPipe, NgForOf } from '@angular/common'
-import { Component, inject } from '@angular/core'
+import { Component, inject, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { TuiScrollbarModule } from '@taiga-ui/core'
+import { MoviesService } from '../../../services/movies.service'
 import { HeaderComponent } from '../../shared/header/header.component'
 import { MovieCardComponent } from '../../shared/movie-card/movie-card.component'
 
@@ -10,15 +11,9 @@ import { MovieCardComponent } from '../../shared/movie-card/movie-card.component
   templateUrl: 'movie-layout.component.html',
   styleUrls: ['movie-layout.component.scss'],
   standalone: true,
-  imports: [
-    MovieCardComponent,
-    NgForOf,
-    JsonPipe,
-    TuiScrollbarModule,
-    HeaderComponent,
-  ],
+  imports: [MovieCardComponent, NgForOf, JsonPipe, TuiScrollbarModule, HeaderComponent],
 })
-export class MovieLayoutComponent {
+export class MovieLayoutComponent implements OnInit {
   json = {
     results: [
       {
@@ -334,8 +329,7 @@ export class MovieLayoutComponent {
         id: 11216,
         original_language: 'it',
         original_title: 'Nuovo Cinema Paradiso',
-        overview:
-          "A filmmaker recalls his childhood, when he fell in love with the movies at his village's theater and formed a deep friendship with the theater's projectionist.",
+        overview: "A filmmaker recalls his childhood, when he fell in love with the movies at his village's theater and formed a deep friendship with the theater's projectionist.",
         popularity: 36.731,
         poster_path: '/8SRUfRUi6x4O68n0VCbDNRa6iGL.jpg',
         release_date: '1988-11-17',
@@ -454,8 +448,7 @@ export class MovieLayoutComponent {
         id: 598,
         original_language: 'pt',
         original_title: 'Cidade de Deus',
-        overview:
-          "In the slums of Rio, two kids' paths diverge as one struggles to become a photographer and the other a kingpin.",
+        overview: "In the slums of Rio, two kids' paths diverge as one struggles to become a photographer and the other a kingpin.",
         popularity: 98.975,
         poster_path: '/k7eYdWvhYQyRQoU2TB2A2Xu2TfD.jpg',
         release_date: '2002-08-30',
@@ -505,8 +498,7 @@ export class MovieLayoutComponent {
         id: 255709,
         original_language: 'ko',
         original_title: '소원',
-        overview:
-          'After 8-year-old So-won narrowly survives a brutal sexual assault, her family labors to help her heal while coping with their own rage and grief.',
+        overview: 'After 8-year-old So-won narrowly survives a brutal sexual assault, her family labors to help her heal while coping with their own rage and grief.',
         popularity: 21.474,
         poster_path: '/x9yjkm9gIz5qI5fJMUTfBnWiB2o.jpg',
         release_date: '2013-10-02',
@@ -675,8 +667,7 @@ export class MovieLayoutComponent {
         id: 761053,
         original_language: 'en',
         original_title: "Gabriel's Inferno: Part III",
-        overview:
-          "The final part of the film adaption of the erotic romance novel Gabriel's Inferno written by an anonymous Canadian author under the pen name Sylvain Reynard.",
+        overview: "The final part of the film adaption of the erotic romance novel Gabriel's Inferno written by an anonymous Canadian author under the pen name Sylvain Reynard.",
         popularity: 24.93,
         poster_path: '/fYtHxTxlhzD4QWfEbrC1rypysSD.jpg',
         release_date: '2020-11-19',
@@ -710,8 +701,7 @@ export class MovieLayoutComponent {
         id: 568332,
         original_language: 'en',
         original_title: 'Taylor Swift: Reputation Stadium Tour',
-        overview:
-          'Taylor Swift takes the stage in Dallas for the Reputation Stadium Tour and celebrates a monumental night of music, memories and visual magic.',
+        overview: 'Taylor Swift takes the stage in Dallas for the Reputation Stadium Tour and celebrates a monumental night of music, memories and visual magic.',
         popularity: 28.644,
         poster_path: '/u6oXUTtOuJRPdUgUuPAVVJPSKCo.jpg',
         release_date: '2018-12-31',
@@ -778,8 +768,7 @@ export class MovieLayoutComponent {
         id: 244786,
         original_language: 'en',
         original_title: 'Whiplash',
-        overview:
-          'Under the direction of a ruthless instructor, a talented young drummer begins to pursue perfection at any cost, even his humanity.',
+        overview: 'Under the direction of a ruthless instructor, a talented young drummer begins to pursue perfection at any cost, even his humanity.',
         popularity: 204.371,
         poster_path: '/7fn624j5lj3xTme2SgiLCeuedmO.jpg',
         release_date: '2014-10-10',
@@ -897,8 +886,7 @@ export class MovieLayoutComponent {
         id: 567,
         original_language: 'en',
         original_title: 'Rear Window',
-        overview:
-          'A wheelchair-bound photographer spies on his neighbors from his apartment window and becomes convinced one of them has committed murder.',
+        overview: 'A wheelchair-bound photographer spies on his neighbors from his apartment window and becomes convinced one of them has committed murder.',
         popularity: 66.869,
         poster_path: '/ILVF0eJxHMddjxeQhswFtpMtqx.jpg',
         release_date: '1954-08-01',
@@ -982,8 +970,7 @@ export class MovieLayoutComponent {
         id: 914,
         original_language: 'en',
         original_title: 'The Great Dictator',
-        overview:
-          "Dictator Adenoid Hynkel tries to expand his empire while a poor Jewish barber tries to avoid persecution from Hynkel's regime.",
+        overview: "Dictator Adenoid Hynkel tries to expand his empire while a poor Jewish barber tries to avoid persecution from Hynkel's regime.",
         popularity: 93.881,
         poster_path: '/1QpO9wo7JWecZ4NiBuu625FiY1j.jpg',
         release_date: '1940-10-15',
@@ -1016,8 +1003,7 @@ export class MovieLayoutComponent {
         id: 18491,
         original_language: 'ja',
         original_title: '新世紀エヴァンゲリオン劇場版 Air／まごころを、君に',
-        overview:
-          'Seele orders an all-out attack on NERV, aiming to destroy the Evas before Gendo can trigger Third Impact and Instrumentality under his control.',
+        overview: 'Seele orders an all-out attack on NERV, aiming to destroy the Evas before Gendo can trigger Third Impact and Instrumentality under his control.',
         popularity: 66.298,
         poster_path: '/j6G24dqI4WgUtChhWjfnI4lnmiK.jpg',
         release_date: '1997-07-19',
@@ -1047,7 +1033,14 @@ export class MovieLayoutComponent {
   }
   public router = inject(Router)
   public route = inject(ActivatedRoute)
+  public moviesService = inject(MoviesService)
   protected goToMovieDetails(movie: any) {
     this.router.navigate(['movies', movie.id], { relativeTo: this.route })
+  }
+
+  ngOnInit() {
+    this.moviesService.getMovies().subscribe({
+    next: (movies) => console.log(movies)
+    })
   }
 }

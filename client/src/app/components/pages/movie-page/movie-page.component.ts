@@ -13,6 +13,7 @@ import {
 } from '@taiga-ui/icons'
 import { TuiRatingModule, TuiTagModule } from '@taiga-ui/kit'
 import { SetBackgroundImageDirective } from '../../../directives/set-background-image.directive'
+import { MoviesService } from '../../../services/movies.service'
 import { HeaderComponent } from '../../shared/header/header.component'
 import { MovieCardComponent } from '../../shared/movie-card/movie-card.component'
 
@@ -1072,6 +1073,7 @@ export class MoviePageComponent implements OnInit {
   }
   movie: any
   private route = inject(ActivatedRoute)
+  private moviesService = inject(MoviesService)
   details?: { title: string; content: string }[]
 
   getGenreName(genreId: number) {

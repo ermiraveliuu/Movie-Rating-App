@@ -6,13 +6,21 @@
         [formControl]="form.controls.genre"
         [tuiTextfieldSize]="'m'"
         [tuiTextfieldLabelOutside]="true"
+        [stringify]="stringify"
       >
         Select genres...
-        <tui-data-list-wrapper
+        <tui-data-list
           *tuiDataList
           tuiMultiSelectGroup
-          [items]="genres"
-        ></tui-data-list-wrapper>
+        >
+          <button
+            *ngFor="let item of genres"
+            tuiOption
+            [value]="item"
+          >
+            {{ item.name }}
+          </button>
+        </tui-data-list>
       </tui-multi-select>
     </label>
     <label tuiLabel="Language">
@@ -21,13 +29,21 @@
         [formControl]="form.controls.language"
         [tuiTextfieldSize]="'m'"
         [tuiTextfieldLabelOutside]="true"
+        [stringify]="stringify"
       >
         Select languages...
-        <tui-data-list-wrapper
+        <tui-data-list
           *tuiDataList
           tuiMultiSelectGroup
-          [items]="languages"
-        ></tui-data-list-wrapper>
+        >
+          <button
+            *ngFor="let item of languages"
+            tuiOption
+            [value]="item"
+          >
+            {{ item.englishName }}
+          </button>
+        </tui-data-list>
       </tui-multi-select>
     </label>
   </div>

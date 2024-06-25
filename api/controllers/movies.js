@@ -2,17 +2,29 @@ const Movie = require('../models/Movie')
 
 const getAllMovies = async (req, res) => {
   try {
-    const movies = await Movie.find({})
-    res.status(201).json(movies);
+    const query = req.query;
+    const filters = {}
+    if(req.original_language) {
+      filters['original_language'] = req.original_language;
+    }
+    const movies = await Movie.find({original_language: { $in: []}})
+    res.status(201).json({
+      status: 'success',
+      data: movies,
+      length: movies.length
+    });
   } catch (e) {
-    res.status(500).json({message: e})
+    res.status(404).json({message: e})
   }
 };
 
 const getMovie = async (req, res) => {
   try {
-    const movies = await Movie.find({id: req.params.id})
-    res.status(201).json(movies);
+    const movie = await Movie.findById(req.params.id)
+    res.status(201).json({
+      status: 'success',
+      data: movie
+    });
   } catch (e) {
     res.status(500).json({message: e})
   }
