@@ -9,7 +9,7 @@ export class DialogService {
   ) {}
 
   open(component: any, options: Options) {
-    return this.dialogs.open(new PolymorpheusComponent(component), {
+    return this.dialogs.open<any>(new PolymorpheusComponent(component), {
       ...options,
       size: options.size ?? 'm',
     })

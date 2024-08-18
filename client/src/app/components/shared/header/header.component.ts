@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common'
-import { Component, inject } from '@angular/core'
+import { Component, EventEmitter, inject, Output } from '@angular/core'
 import { ActivatedRoute, RouterLink } from '@angular/router'
 import { TuiButtonModule, TuiHintModule, TuiSvgModule } from '@taiga-ui/core'
 import { tuiIconBookmark, tuiIconFilm, tuiIconFilter, tuiIconLogIn, tuiIconMoon, tuiIconSun, tuiIconUser } from '@taiga-ui/icons'
@@ -7,7 +7,7 @@ import { TuiAvatarModule } from '@taiga-ui/kit'
 import { AuthService } from '../../../services/auth.service'
 import { DarkModeService } from '../../../services/dark-mode.service'
 import { DialogService } from '../../../services/dialog.service'
-import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component.dialog'
+import { FilterDialogComponent, Filters } from '../filter-dialog/filter-dialog.component.dialog'
 import { SearchComponent } from '../search/search.component'
 
 @Component({
@@ -18,6 +18,8 @@ import { SearchComponent } from '../search/search.component'
   imports: [TuiSvgModule, TuiButtonModule, SearchComponent, NgIf, RouterLink, TuiHintModule, TuiAvatarModule],
 })
 export class HeaderComponent {
+  @Output() filtered = new EventEmitter<Filters>();
+
   protected readonly tuiIconUser = tuiIconUser
   protected readonly allowSearch: boolean
   protected readonly allowFiltering: boolean
@@ -31,8 +33,9 @@ export class HeaderComponent {
     this.allowSearch = this.route.snapshot.data['allowSearch'] ?? false
     this.allowFiltering = this.route.snapshot.data['allowFiltering'] ?? false
   }
+
   protected get darkMode() {
-    return this.darkModeService.darkMode
+    return this.darkModeService.darkMode;
   }
 
   protected toggleDarkMode() {
@@ -40,7 +43,11 @@ export class HeaderComponent {
   }
 
   protected openFilterDialog(): void {
-    this.dialogService.open(FilterDialogComponent, { label: 'Filter' }).subscribe()
+    this.dialogService.open(FilterDialogComponent, { label: 'Filter' }).subscribe({
+      next: (filters: Filters) => {
+        this.filtered.emit(filters)
+      }
+    })
   }
 
   protected readonly tuiIconSun = tuiIconSun

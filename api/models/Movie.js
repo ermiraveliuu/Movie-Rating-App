@@ -4,7 +4,7 @@ const { Genre } = require('./Genre')
 const MovieSchema = new mongoose.Schema({
     backdrop_path: { type: String, required: [true, 'Must provide backdrop_path'] },
     budget: { type: Number },
-    genres: [{ type: [String] }],
+    genreIds: { type: [String] },
     id: { type: Number, required: [true, 'Must provide id'] },
     imdb_id: { type: String },
     overview: { type: String, required: [true, 'Must provide overview'] },

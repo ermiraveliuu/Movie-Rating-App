@@ -1,6 +1,7 @@
 import { NgForOf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { ActivatedRoute, Router } from '@angular/router'
 import {
   TuiButtonModule,
   TuiDataListModule,
@@ -50,9 +51,11 @@ export class FilterDialogComponent implements OnInit {
 
   constructor(
     @Inject(POLYMORPHEUS_CONTEXT)
-    private readonly context: TuiDialogContext<any, any>,
+    private readonly context: TuiDialogContext<Filters, any>,
     private genresService: GenresService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -67,13 +70,26 @@ export class FilterDialogComponent implements OnInit {
   }
 
   readonly stringify = (item: Genre): string => `${item.name}`
+  readonly languageStringify = (item: Language): string => `${item.englishName}`
 
   save() {
-    console.log(this.form.value)
-    this.context.completeWith(null)
+    let queryParams = {}
+    if(this.form.value.genre && this.form.value.genre.length){
+      queryParams['genreIds'] = this.form.value.genre?.map(genre => genre.tmdb_id);
+    }
+    if(this.form.value.language && this.form.value.language.length){
+      queryParams['languageIds'] = this.form.value.language?.map(lang => lang.tmdb_id);
+    }
+    this.router.navigate([], {queryParams, relativeTo: this.route })
+    this.context.completeWith(queryParams)
   }
 
   close() {
     this.context.completeWith(null)
   }
+}
+
+export interface Filters {
+  genreIds?: string[];
+  languageIds?: string[]
 }

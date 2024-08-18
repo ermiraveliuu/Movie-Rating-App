@@ -2,12 +2,25 @@ const Movie = require('../models/Movie')
 
 const getAllMovies = async (req, res) => {
   try {
-    const query = req.query;
-    const filters = {}
-    if(req.original_language) {
-      filters['original_language'] = req.original_language;
+    const page = parseInt(req.query.page) || 1; // Current page number, default 1
+    const limit = parseInt(req.query.limit) || 50; // Number of documents per page, default 50
+
+    let query = {};
+
+    if(req.query.genreIds) {
+      let genres = req.query.genreIds.split(',');
+      genres = genres.map(genreId => parseInt(genreId));
+      query['genre_ids'] = {$in: genres};
     }
-    const movies = await Movie.find({original_language: { $in: []}})
+
+    if(req.query.languageIds) {
+      let languages = req.query.languageIds.split(',');
+      query['original_language'] = {$in: languages};
+    }
+
+    const movies = await Movie.find(query)
+                               .skip((page - 1) * limit) // Skip documents that are before the current page
+                               .limit(limit);
     res.status(201).json({
       status: 'success',
       data: movies,
@@ -21,10 +34,7 @@ const getAllMovies = async (req, res) => {
 const getMovie = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id)
-    res.status(201).json({
-      status: 'success',
-      data: movie
-    });
+    res.status(201).json(movie);
   } catch (e) {
     res.status(500).json({message: e})
   }

@@ -1,11 +1,8 @@
 <app-header />
-
 <div
-  class="w-full blur-2xl gap-6 absolute h-[500px] opacity-50 mt-8 ml-80"
+  class="w-full blur-2xl gap-6 absolute h-[500px] opacity-50 mt-8 ml-80 background-image"
   setBackgroundImage
-  [imageUrl]="
-    'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.poster_path
-  "
+  [imageUrl]="movie.poster_path"
 ></div>
 
 <div class="absolute flex m-10 gap-20 h-[500px]">
@@ -13,7 +10,7 @@
   <img
     class="rounded-lg movie-image"
     [src]="
-      'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie.backdrop_path
+      'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie?.backdrop_path
     "
     alt="movie-poster-image"
   />
@@ -21,10 +18,10 @@
   <div class="flex flex-col h-[520px] justify-between">
     <div>
       <h1 class="text-4xl font-bold">
-        {{ movie.title }}{{ movie.release_dat }}
+        {{ movie?.title }}
       </h1>
 
-      <ng-container *ngFor="let genreId of movie.genre_ids">
+      <ng-container *ngFor="let genreId of movie?.genre_ids">
         <tui-tag
           class="mr-1.5 my-2"
           [value]="getGenreName(genreId)"
@@ -63,28 +60,28 @@
             style="color: var(--tui-accent)"
             class="rating-icon"
           />
-          <p class="text-lg">{{ round(movie.vote_average) }}</p>
+          <p class="text-lg">{{ round(movie?.vote_average) }}</p>
         </div>
       </div>
 
       <div>
         <span class="text-sm">Release Date</span>
         <p class="text-lg">
-          {{ movie.release_date | date }}
+          {{ movie?.release_date | date }}
         </p>
       </div>
 
       <div>
         <span class="text-sm">Original Language</span>
         <p class="text-lg">
-          {{ getLanguage(movie.original_language) }}
+          {{ getLanguage(movie?.original_language) }}
         </p>
       </div>
 
       <div>
         <span class="text-sm">Overview</span>
         <p class="text-lg">
-          {{ movie.overview }}
+          {{ movie?.overview }}
         </p>
       </div>
     </div>
