@@ -11,7 +11,6 @@ export class MoviesService {
   public readonly http: HttpClient = inject(HttpClient);
 
   getMovies(page?: number, genreIds?: string[], languageIds?: string[]): Observable<ApiResponse<Movie>> {
-    console.log(genreIds);
     let params = new HttpParams().append('page',page ?? 1);
     if(genreIds){
       params = params.append('genreIds', genreIds.join(','));

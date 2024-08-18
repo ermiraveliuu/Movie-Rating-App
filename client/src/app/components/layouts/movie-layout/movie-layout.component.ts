@@ -21,9 +21,10 @@ export class MovieLayoutComponent implements OnInit {
   public route = inject(ActivatedRoute)
   public moviesService = inject(MoviesService)
 
-  protected readonly showLoader = signal<boolean>(true);
+  protected readonly showLoader = signal<boolean>(true)
   protected movies: Movie[] = []
-  index = 0;
+  index = 0
+  pages = null
 
   protected goToMovieDetails(movie: any) {
     this.router.navigate(['movies', movie._id], { relativeTo: this.route })
@@ -32,36 +33,39 @@ export class MovieLayoutComponent implements OnInit {
   ngOnInit() {
     this.moviesService.getMovies(this.index + 1).subscribe({
       next: movies => {
-        this.showLoader.set(false);
+        this.showLoader.set(false)
         this.movies = movies.data
+        this.pages = movies.pageCount
       },
     })
   }
 
   onFilter(filters: Filters) {
+    if(!filters?.genreIds && !filters?.languageIds) return;
     this.index = 0
-    this.showLoader.set(true);
+    this.showLoader.set(true)
     this.moviesService.getMovies(this.index + 1, filters.genreIds, filters.languageIds).subscribe({
       next: movies => {
-        this.showLoader.set(false);
+        this.showLoader.set(false)
         this.movies = movies.data
+        this.pages = movies.pageCount
       },
     })
   }
 
-
   goToPage(index: number): void {
-    this.showLoader.set(true);
+    this.showLoader.set(true)
     this.index = index
     this.moviesService.getMovies(this.index + 1).subscribe({
       next: movies => {
-        this.showLoader.set(false);
+        this.showLoader.set(false)
         this.movies = movies.data
+        this.pages = movies.pageCount
         window.scroll({
           top: 0,
           left: 0,
         })
-        },
+      },
     })
   }
 }

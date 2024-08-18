@@ -18,13 +18,15 @@ const getAllMovies = async (req, res) => {
       query['original_language'] = {$in: languages};
     }
 
+    const itemCount = await Movie.countDocuments(query);
     const movies = await Movie.find(query)
                                .skip((page - 1) * limit) // Skip documents that are before the current page
                                .limit(limit);
     res.status(201).json({
       status: 'success',
       data: movies,
-      length: movies.length
+      length: movies.length,
+      pageCount: Math.ceil(itemCount / limit)
     });
   } catch (e) {
     res.status(404).json({message: e})
