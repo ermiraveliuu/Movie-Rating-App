@@ -10,18 +10,33 @@ import { Movie } from '../models/movie.model'
 export class MoviesService {
   public readonly http: HttpClient = inject(HttpClient);
 
-  getMovies(page?: number, genreIds?: string[], languageIds?: string[]): Observable<ApiResponse<Movie>> {
+  getMovies(_params: MovieParams): Observable<ApiResponse<Movie>> {
+    const { page, genreIds, languageIds, searchValue } = _params
     let params = new HttpParams().append('page',page ?? 1);
+
+    if(searchValue){
+      params = params.append('q', searchValue);
+    }
+
     if(genreIds){
       params = params.append('genreIds', genreIds.join(','));
     }
+
     if(languageIds){
       params = params.append('languageIds', languageIds.join(','));
     }
+
     return this.http.get<ApiResponse<Movie>>(`/movies`, { params })
   }
 
   getMovie(movieId?: string) {
     return this.http.get<any>(`/movies/${movieId}`)
   }
+}
+
+export interface MovieParams {
+  page: number;
+  searchValue?: string;
+  genreIds?: string[],
+  languageIds?: string[]
 }

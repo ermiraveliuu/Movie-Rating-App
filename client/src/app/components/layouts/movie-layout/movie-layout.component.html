@@ -1,17 +1,17 @@
-<app-header (filtered)="onFilter($event)"/>
+<app-header (filtered)="onFilter($event)" (searched)="onSearch($event)"/>
 
 <tui-loader [showLoader]="showLoader()" [overlay]="true">
   <div class="flex justify-center m-8 items-center flex-wrap gap-x-3 gap-y-5 movies">
-    @if (!movies?.length && !showLoader()) {
+    @if (!movies()?.length && !showLoader()) {
       <p>No movies found.</p>
     } @else {
-      <movie-card *ngFor="let movie of movies" [movie]="movie" (click)="goToMovieDetails(movie)" />
+      <movie-card *ngFor="let movie of movies()" [movie]="movie" (click)="goToMovieDetails(movie)" />
     }
   </div>
   @if (pages) {
       <tui-pagination
-        [index]="index"
-        [length]="pages"
+        [index]="index()"
+        [length]="pages()"
         (indexChange)="goToPage($event)"
       />
   }

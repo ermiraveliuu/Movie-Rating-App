@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router'
 import { TuiButtonModule, TuiHintModule, TuiSvgModule } from '@taiga-ui/core'
 import { tuiIconBookmark, tuiIconFilm, tuiIconFilter, tuiIconLogIn, tuiIconMoon, tuiIconSun, tuiIconUser } from '@taiga-ui/icons'
 import { TuiAvatarModule } from '@taiga-ui/kit'
+import { Subject } from 'rxjs'
 import { AuthService } from '../../../services/auth.service'
 import { DarkModeService } from '../../../services/dark-mode.service'
 import { DialogService } from '../../../services/dialog.service'
@@ -19,8 +20,8 @@ import { SearchComponent } from '../search/search.component'
 })
 export class HeaderComponent {
   @Output() filtered = new EventEmitter<Filters>();
+  @Output() searched = new Subject<string>()
 
-  protected readonly tuiIconUser = tuiIconUser
   protected readonly allowSearch: boolean
   protected readonly allowFiltering: boolean
 

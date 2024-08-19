@@ -7,6 +7,11 @@ const getAllMovies = async (req, res) => {
 
     let query = {};
 
+    if(req.query.q) {
+      const searchValue = req.query.q;
+      query['title'] = {$regex: searchValue, $options: "i" };
+    }
+
     if(req.query.genreIds) {
       let genres = req.query.genreIds.split(',');
       genres = genres.map(genreId => parseInt(genreId));
