@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const jwt = require("jsonwebtoken")
 const passport = require("passport");
 const movies = require("./routes/movies.js");
 const auth = require("./routes/auth.js");
