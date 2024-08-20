@@ -2,38 +2,47 @@
 <div
   class="w-full blur-2xl gap-6 absolute h-[500px] opacity-50 mt-8 ml-80 background-image"
   setBackgroundImage
-  [imageUrl]="movie.poster_path"
+  [imageUrl]="movie?.poster_path"
 ></div>
 
-<div class="absolute flex m-10 gap-20 h-[500px]">
+<div class="absolute flex m-10 gap-20 h-[520px]">
   <!--Movie Image-->
-  <img
-    class="rounded-lg movie-image"
-    [src]="
+  @if (movie) {
+    <img
+      class="rounded-lg movie-image"
+      [src]="
       'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + movie?.backdrop_path
     "
-    alt="movie-poster-image"
-  />
+      alt="movie-poster-image"
+    />
+  } @else {
+    <div  class="rounded-lg movie-image animate-pulse bg-neutral-900 opacity-5"></div>
+  }
+
   <!--Movie Details-->
-  <div class="flex flex-col h-[520px] justify-between">
+  <div class="flex flex-col h-[520px] gap-12 movie-details justify-between flex-grow">
     <div>
-      <h1 class="text-4xl font-bold">
+      <h1 class="text-4xl font-bold min-h-[40px]">
         {{ movie?.title }}
       </h1>
 
-      <ng-container *ngFor="let genreId of movie?.genre_ids">
-        <tui-tag
-          class="mr-1.5 my-2"
-          [value]="getGenreName(genreId)"
-          *ngIf="!!genreId"
-        />
-      </ng-container>
+      <div  class="flex min-h-[40px]">
+        @for(genre of movie?.genres; track genre) {
+          <tui-tag
+            class="mr-1.5 my-2"
+            [value]="genre"
+            *ngIf="!!genre"
+          />
+        }
+      </div>
 
       <div class="flex gap-2 mt-4">
         <tui-svg
           [src]="tuiIconBookmarkLarge"
           tuiHint="Add to wishlist"
           tuiHintDirection="bottom-right"
+          [class.fill-icon]="movie?.isInWishlist"
+          (click)="movie.isInWishlist ? removeFromWishlist(): addToWishlist()"
         />
         <tui-svg
           [src]="tuiIconHeartLarge"
@@ -74,7 +83,7 @@
       <div>
         <span class="text-sm">Original Language</span>
         <p class="text-lg">
-          {{ getLanguage(movie?.original_language) }}
+          {{ movie?.language }}
         </p>
       </div>
 
@@ -88,7 +97,7 @@
   </div>
 
   <!--Movie Reviews-->
-  <div class="w-[700px]">
+  <div class="w-[300px]">
     <tui-scrollbar>
       <span class="text-sm">Reviews</span>
       <p class="text-lg">No reviews yet!</p>

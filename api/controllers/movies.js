@@ -1,4 +1,8 @@
 const Movie = require('../models/Movie')
+const mongoose = require('mongoose')
+const Wishlist = require('../models/Wishlist')
+const Genre = require('../models/Genre')
+const Language = require('../models/Language')
 
 const getAllMovies = async (req, res) => {
   try {
@@ -24,13 +28,22 @@ const getAllMovies = async (req, res) => {
     }
 
     const itemCount = await Movie.countDocuments(query);
-    const movies = await Movie.find(query)
-                               .skip((page - 1) * limit) // Skip documents that are before the current page
-                               .limit(limit);
+    const moviesWithRatings = await Movie.aggregate([
+      {
+        $match: query // Apply filters and search
+      },
+      {
+        $skip: (page - 1) * limit,
+      },
+      {
+        $limit: limit
+      }
+    ]);
+
     res.status(201).json({
       status: 'success',
-      data: movies,
-      length: movies.length,
+      data: moviesWithRatings,
+      length: moviesWithRatings.length,
       pageCount: Math.ceil(itemCount / limit)
     });
   } catch (e) {
@@ -41,9 +54,24 @@ const getAllMovies = async (req, res) => {
 const getMovie = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id)
-    res.status(201).json(movie);
+    const userId = req.query.userId
+    let isInWishlist = false;
+    if (userId) {
+      const wishlist = await Wishlist.findOne({ userId });
+      if (wishlist) {
+        isInWishlist = wishlist.movies.includes(new mongoose.Types.ObjectId(req.params.id));
+      }
+    }
+    const genres = await Genre.find({ tmdb_id: { $in: movie.genre_ids } })
+    const language = await Language.find({ tmdb_id:  movie._doc.original_language })
+    res.status(201).json({
+      ...movie._doc,
+      isInWishlist,
+      genres: genres.map(genre => genre?.name),
+      language: language[0].englishName ?? 'Not Known'
+    });
   } catch (e) {
-    res.status(500).json({message: e})
+    res.status(404).json({message: e})
   }
 };
 
@@ -56,30 +84,8 @@ const createMovie = async (req, res) => {
   }
 };
 
-const createMovies = async (req, res) => {
-  try {
-    for(movie of req.body) {
-      await Movie.create(req.body)
-    }
-    // const movie = await Movie.create(req.body)
-    res.status(201).json(movie);
-  } catch (error) {
-    res.status(500).json({message: error})
-  }
-};
-
-const updateMovie = (req, res) => {
-  res.send("Update movie");
-};
-
-const deleteMovie = (req, res) => {
-  res.send("Delete movie");
-};
 
 module.exports = {
   getAllMovies,
-  createMovie,
   getMovie,
-  updateMovie,
-  deleteMovie,
 };

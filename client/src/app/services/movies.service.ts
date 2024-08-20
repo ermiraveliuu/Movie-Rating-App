@@ -3,12 +3,14 @@ import { inject, Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { ApiResponse } from '../models/api-response'
 import { Movie } from '../models/movie.model'
+import { AuthService } from './auth.service'
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
   public readonly http: HttpClient = inject(HttpClient);
+  public readonly authService = inject(AuthService);
 
   getMovies(_params: MovieParams): Observable<ApiResponse<Movie>> {
     const { page, genreIds, languageIds, searchValue } = _params
@@ -29,8 +31,13 @@ export class MoviesService {
     return this.http.get<ApiResponse<Movie>>(`/movies`, { params })
   }
 
-  getMovie(movieId?: string) {
-    return this.http.get<any>(`/movies/${movieId}`)
+  getMovie(movieId: string) {
+    let params = new HttpParams();
+    const userId = this.authService.user?._id;
+    if(userId) {
+      params = new HttpParams().append('userId', userId);
+    }
+    return this.http.get<any>(`/movies/${movieId}`, { params })
   }
 }
 

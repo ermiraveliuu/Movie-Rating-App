@@ -1,7 +1,28 @@
 <app-header />
-<div class="m-8 flex flex-col gap-8">
-  <tui-avatar [autoColor]="true" [rounded]="true" size="xxl" text="E V" />
-  <div>
-    <p class="text-xl">Ratings and Reviews</p>
+<!--<tui-island class="m-8 flex flex-col gap-8">-->
+<!--  <div class="flex gap-8">-->
+<!--    <tui-avatar [autoColor]="true" [rounded]="true" size="xl"-->
+<!--                [text]="user?.firstName + ' ' + user?.lastName"-->
+<!--                [style.background]="user | avatarColor" />-->
+<!--    <p>{{ user.firstName }} {{ user.lastName }}</p>-->
+<!--  </div>-->
+
+<!--</tui-island>-->
+
+<div class="wishlist">
+  <div class="title">
+    <tui-svg [src]="tuiIconBookmarkLarge"/>
+    <p>Wishlist</p>
   </div>
+  @if (!wishlist()) {
+    <p>No movies added to wishlist yet.</p>
+  } @else {
+    @for (movie of wishlist(); track movie._id) {
+      <div>
+        {{ movie.title }}
+      </div>
+    }
+
+  }
+
 </div>

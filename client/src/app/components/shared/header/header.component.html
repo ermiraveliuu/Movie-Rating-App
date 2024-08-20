@@ -16,8 +16,9 @@
       <tui-svg [src]="tuiIconMoon" (click)="toggleDarkMode()" [tuiHint]="'Dark Mode'" />
     }
     <ng-container *ngIf="authService.loggedIn">
-      <tui-svg [src]="tuiIconBookmark" />
-      <tui-avatar [text]="'E'" size="xs"/>
+      <tui-hosted-dropdown [content]="dropdownContent">
+        <tui-avatar [text]="authService.user?.firstName" size="xs" [style.background]="authService?.user | avatarColor"/>
+      </tui-hosted-dropdown>
     </ng-container>
 
     <ng-container *ngIf="!authService.loggedIn">
@@ -25,3 +26,11 @@
     </ng-container>
   </div>
 </div>
+
+<ng-template #dropdownContent>
+  <tui-data-list>
+    <tui-avatar [text]="authService.user?.firstName" size="xs" [style.background]="authService?.user | avatarColor"/>
+    <button tuiOption [routerLink]="'/user'">My Profile</button>
+    <button tuiOption (click)="authService.logout()">Log Out</button>
+  </tui-data-list>
+</ng-template>

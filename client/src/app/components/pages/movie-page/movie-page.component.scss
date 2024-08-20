@@ -18,3 +18,13 @@ tui-svg:hover {
 .background-image {
   max-width: 70vw;
 }
+
+.fill-icon {
+  color: var(--tui-primary);
+  fill: var(--tui-primary);
+}
+
+.movie-details {
+  min-width: calc(100vw - 15rem - 660px);
+  width: calc(100vw - 15rem - 660px);
+}

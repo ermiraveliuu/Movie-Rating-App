@@ -6,7 +6,7 @@ import {
 } from '@angular/forms';
 import { TuiInputModule } from '@taiga-ui/kit';
 import { NgIf, TitleCasePipe } from '@angular/common';
-import { FormControlPipe } from '../../../../pipes/formControl.pipe';
+import { FormControlPipe } from '../../../../pipes/form-control.pipe';
 import {
   TuiErrorModule,
   TuiLabelModule,

@@ -5,6 +5,7 @@ const movies = require("./routes/movies.js");
 const auth = require("./routes/auth.js");
 const genre = require("./routes/genre.js");
 const language = require("./routes/language.js");
+const wishlist = require("./routes/wishlist.js");
 const connectDB = require('./db/connect');
 
 require('dotenv').config()
@@ -26,6 +27,7 @@ app.use("/api/v1/movies", movies);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/genres", genre);
 app.use("/api/v1/languages", language);
+app.use("/api/v1/wishlist", wishlist);
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

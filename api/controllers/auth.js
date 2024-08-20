@@ -1,7 +1,6 @@
 const { hashSync, compareSync } = require('bcrypt')
 const userModel = require('../models/User')
 const jwt = require('jsonwebtoken')
-const passport = require('passport')
 
 const register = async (req, res) => {
   const userExists = await userModel.findOne({ username: req.body.username })
@@ -48,10 +47,13 @@ const login = async (req, res) => {
       }
 
       const token = jwt.sign({ ...user }, process.env.JWT_SECRET, {expiresIn: "1d"});
+      const userObj = { ...user };
+      delete userObj.password;
       return res.status(200).send({
         success: true,
         message: 'Login successful',
         token: `Bearer ${token}`,
+        user: userObj._doc,
         expiresIn: '1d'
       })
     })

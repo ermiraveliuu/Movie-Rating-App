@@ -7,7 +7,8 @@
     alt="movie-poster"
   />
   <div class="p-2 flex flex-col gap-3">
-    <span class="flex items-center text-sm gap-1">
+    <div class="flex justify-between">
+          <span class="flex items-center text-sm gap-1">
       <tui-rating
         [max]="1"
         [ngModel]="1"
@@ -15,8 +16,11 @@
         [iconFilled]="tuiIconStar"
         class="rating-icon"
       />
-      {{ round(movie.vote_average) }}
+            {{ round(movie.vote_average) }}
     </span>
+<!--      <span>{{ movie.release_date | date: 'y' }}</span>-->
+    </div>
+
     <tui-line-clamp
       class="text-sm"
       [content]="movie.title"
