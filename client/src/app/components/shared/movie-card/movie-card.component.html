@@ -6,8 +6,8 @@
     "
     alt="movie-poster"
   />
-  <div class="p-2 flex flex-col gap-3">
-    <div class="flex justify-between">
+  <div class="p-2 flex flex-col gap-3 pb-4">
+    <div class="flex justify-between flex-col">
           <span class="flex items-center text-sm gap-1">
       <tui-rating
         [max]="1"
@@ -18,30 +18,28 @@
       />
             {{ round(movie.vote_average) }}
     </span>
-<!--      <span>{{ movie.release_date | date: 'y' }}</span>-->
+      <div  class="flex">
+          <tui-tag
+            size="s"
+            class="mr-1.5 my-2"
+            [value]="movie?.genres[0]"
+            *ngIf="!!movie?.genres[0]"
+          />
+
+          <tui-tag
+            size="s"
+            class="mr-1.5 my-2"
+            [value]="movie?.genres[1]"
+            *ngIf="!!movie?.genres[1]"
+          />
+      </div>
     </div>
 
     <tui-line-clamp
       class="text-sm"
-      [content]="movie.title"
+      [content]="movie.title + ' (' +( movie.release_date | date: 'y') + ')'"
       [lineHeight]="20"
-      [linesLimit]="2"
+      [linesLimit]="1"
     />
-    <button
-      tuiButton
-      appearance="primary"
-      size="s"
-      (click)="rate($event, movie)"
-    >
-      Rate
-    </button>
-    <button
-      tuiButton
-      appearance="secondary"
-      size="s"
-      (click)="addToWishlist($event, movie)"
-    >
-      Add to wishlist
-    </button>
   </div>
 </tui-island>

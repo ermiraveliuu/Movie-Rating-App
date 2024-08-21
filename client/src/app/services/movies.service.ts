@@ -4,12 +4,12 @@ import { Observable } from 'rxjs'
 import { ApiResponse } from '../models/api-response'
 import { Movie } from '../models/movie.model'
 import { AuthService } from './auth.service'
+import { BaseService } from './base-service'
 
 @Injectable({
   providedIn: 'root',
 })
-export class MoviesService {
-  public readonly http: HttpClient = inject(HttpClient);
+export class MoviesService extends BaseService {
   public readonly authService = inject(AuthService);
 
   getMovies(_params: MovieParams): Observable<ApiResponse<Movie>> {

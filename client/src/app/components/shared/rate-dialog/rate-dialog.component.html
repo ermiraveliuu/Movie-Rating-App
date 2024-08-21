@@ -1,0 +1,29 @@
+<div class="flex flex-col gap-2.5">
+  <label tuiLabel="Rating">
+    <tui-rating
+      class="rating"
+      [max]="10"
+      [formControl]="form.controls.rating"
+    />
+  </label>
+  <text-area-input
+    [control]="form.controls.comment"
+    [name]="'Review'"
+  />
+</div>
+
+<div class="flex justify-between items-center gap-2 mt-4">
+  <div>
+    <button tuiButton appearance="secondary-destructive" size="s" (click)="delete()">
+      Delete
+    </button>
+  </div>
+  <div class="flex justify-end gap-2">
+    <button tuiButton appearance="secondary" size="s" (click)="cancel()">
+      Cancel
+    </button>
+    <button tuiButton appearance="primary" size="s" [disabled]="!form.valid" (click)="save()">
+      Save
+    </button>
+  </div>
+</div>

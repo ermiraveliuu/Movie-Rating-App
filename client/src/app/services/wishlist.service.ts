@@ -1,8 +1,6 @@
 import { HttpParams } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
 import { Observable } from 'rxjs'
-import { ApiResponse } from '../models/api-response'
-import { Genre } from '../models/genre.model'
 import { Wishlist } from '../models/wishlist.model'
 import { AuthService } from './auth.service'
 import { BaseService } from './base-service'

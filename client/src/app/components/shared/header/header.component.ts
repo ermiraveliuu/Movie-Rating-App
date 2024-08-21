@@ -1,6 +1,6 @@
 import { JsonPipe, NgIf } from '@angular/common'
 import { Component, EventEmitter, inject, Output } from '@angular/core'
-import { ActivatedRoute, RouterLink } from '@angular/router'
+import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import {
   TuiButtonModule,
   TuiDataListModule,
@@ -48,6 +48,7 @@ export class HeaderComponent {
   protected readonly authService = inject(AuthService)
   protected readonly dialogService = inject(DialogService)
   protected readonly route = inject(ActivatedRoute)
+  protected readonly router = inject(Router)
 
   constructor() {
     this.allowSearch = this.route.snapshot.data['allowSearch'] ?? false
@@ -60,6 +61,11 @@ export class HeaderComponent {
 
   protected toggleDarkMode() {
     this.darkModeService.toggleDarkMode()
+  }
+
+  protected logout() {
+    this.authService.logout();
+    this.router.navigate(['login'])
   }
 
   protected openFilterDialog(): void {

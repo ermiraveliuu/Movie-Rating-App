@@ -29,8 +29,8 @@
 
 <ng-template #dropdownContent>
   <tui-data-list>
-    <tui-avatar [text]="authService.user?.firstName" size="xs" [style.background]="authService?.user | avatarColor"/>
+<!--    <tui-avatar [text]="authService.user?.firstName" size="xs" [style.background]="authService?.user | avatarColor"/>-->
     <button tuiOption [routerLink]="'/user'">My Profile</button>
-    <button tuiOption (click)="authService.logout()">Log Out</button>
+    <button tuiOption (click)="logout()">Log Out</button>
   </tui-data-list>
 </ng-template>
