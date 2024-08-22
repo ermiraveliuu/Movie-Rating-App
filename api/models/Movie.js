@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const { Genre } = require('./Genre')
 
 const MovieSchema = new mongoose.Schema({
     backdrop_path: { type: String },
     budget: { type: Number },
-    genre_ids: { type: [String], default: [] },
+    genreIds: { type: [String], default: [] },
     genres: { type: [String], default: [] },
     id: { type: Number, required: [true, 'Must provide id'] },
     imdb_id: { type: String },
