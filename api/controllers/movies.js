@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Movie = require('../models/Movie')
 const Wishlist = require('../models/Wishlist')
-const Genre = require('../models/Genre')
 const Review = require('../models/Review')
 const Language = require('../models/Language')
 
@@ -59,13 +58,11 @@ const getMovie = async (req, res) => {
       }
       review = await Review.findOne({ user: userId, movie: movieId })
     }
-    const genres = await Genre.find({ tmdb_id: { $in: movie.genre_ids } })
     const language = await Language.find({ tmdb_id:  movie._doc.original_language })
     res.status(201).json({
       ...movie._doc,
       isInWishlist,
       review,
-      genres: genres.map(genre => genre?.name),
       language: language[0].englishName ?? 'Not Known'
     });
   } catch (e) {
