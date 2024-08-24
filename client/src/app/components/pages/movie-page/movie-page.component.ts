@@ -76,6 +76,7 @@ export class MoviePageComponent implements OnInit {
   }
 
   addToWishlist() {
+    this.movie.isInWishlist = true;
     this.wishlistService
       .addToWishlist(this.movie._id)
       .pipe(mergeMap(() => this.moviesService.getMovie(this.movie._id)))
@@ -88,6 +89,7 @@ export class MoviePageComponent implements OnInit {
   }
 
   removeFromWishlist() {
+    this.movie.isInWishlist = false;
     this.wishlistService
       .removeFromWishlist(this.movie._id)
       .pipe(mergeMap(() => this.moviesService.getMovie(this.movie._id)))
@@ -123,5 +125,4 @@ export class MoviePageComponent implements OnInit {
   protected readonly tuiIconStar = tuiIconStar
   protected readonly tuiIconStarLarge = tuiIconStarLarge
   protected readonly tuiIconBookmarkLarge = tuiIconBookmarkLarge
-  protected readonly tuiIconHeartLarge = tuiIconHeartLarge
 }

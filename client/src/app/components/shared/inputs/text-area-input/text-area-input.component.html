@@ -1,7 +1,7 @@
 <label
   [tuiLabel]="
     (name | titlecase) +
-    (control.hasValidator(Validators.required) ? '*' : null)
+    (control.hasValidator(Validators.required) ? '*' : '')
   ">
   <tui-textarea
     [formControl]="control | formControl"

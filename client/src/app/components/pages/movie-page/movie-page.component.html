@@ -40,7 +40,7 @@
         <tui-svg
           class="watchlist-icon"
           [src]="tuiIconBookmarkLarge"
-          [tuiHint]="movie?.isInWishlist ? 'Remove from watchlist' : 'Add to watchlist'"
+          [tuiHint]="movie?.isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'"
           tuiHintDirection="bottom-right"
           [class.fill-watchlist-icon]="movie?.isInWishlist"
           (click)="movie.isInWishlist ? removeFromWishlist(): addToWishlist()"

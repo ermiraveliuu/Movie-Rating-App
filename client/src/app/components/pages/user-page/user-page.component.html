@@ -1,28 +1,81 @@
 <app-header />
-<!--<tui-island class="m-8 flex flex-col gap-8">-->
-<!--  <div class="flex gap-8">-->
-<!--    <tui-avatar [autoColor]="true" [rounded]="true" size="xl"-->
-<!--                [text]="user?.firstName + ' ' + user?.lastName"-->
-<!--                [style.background]="user | avatarColor" />-->
-<!--    <p>{{ user.firstName }} {{ user.lastName }}</p>-->
-<!--  </div>-->
+<div class="content flex h-[100%] justify-center">
+  <div class="m-5">
+    <tui-tabs [(activeItemIndex)]="index">
+      <button
+        tuiTab
+      >
+        <div class="flex items-center gap-1.5">
+          <tui-svg [src]="tuiIconBookmarkLarge" />
+          <p>Wishlist</p>
+        </div>
 
-<!--</tui-island>-->
+      </button>
+      <button
+        tuiTab
+      >
+        <div class="flex items-center gap-1.5">
+          <tui-svg [src]="tuiIconStarLarge" />
+          <p>Ratings and Reviews</p>
+        </div>
+      </button>
+    </tui-tabs>
 
-<div class="wishlist">
-  <div class="title">
-    <tui-svg [src]="tuiIconBookmarkLarge"/>
-    <p>Wishlist</p>
+    <div class="min-w-[1226px] max-w-[1226px] h-full">
+      @if (index === 0) {
+        <div class="wishlist h-full">
+          @if (!wishlist().length) {
+            <div class="flex items-center justify-center h-full text-lg">
+              No movies added to wishlist yet.
+            </div>
+          } @else {
+            <div class="grid grid-cols-5 gap-4 m-4">
+              @for (movie of wishlist(); track movie._id) {
+                <movie-card [movie]="movie" [routerLink]="'/movies/' + movie._id"/>
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="h-full">
+          @if (!reviews().length) {
+            <div class="flex items-center justify-center h-full text-lg">
+              No movies have been rated yet.
+            </div>
+          }
+          <div class="grid grid-cols-2 gap-4 m-4">
+            @for (review of reviews(); track review._id) {
+              <tui-island class="review-card" [hoverable]="true">
+                <div class="flex gap-4">
+                  <img
+                    [routerLink]="'/movies/' + review.movie._id"
+                    class="w-32 rounded-lg"
+                    [src]="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + review.movie.backdrop_path"
+                    alt="movie-poster"
+                  />
+                  <div>
+                    <label tuiLabel="Rating">
+                      <span class="flex items-center text-sm gap-1">
+                              <tui-rating
+                                [max]="1"
+                                [ngModel]="1"
+                                [iconNormal]="tuiIconStar"
+                                [iconFilled]="tuiIconStar"
+                                class="rating-icon"
+                              />
+                        {{ (review.rating) }}
+                      </span>
+                    </label>
+                    <label tuiLabel="Review">
+                      {{ (review.comment) }}
+                    </label>
+                  </div>
+                </div>
+              </tui-island>
+            }
+          </div>
+        </div>
+      }
+    </div>
   </div>
-  @if (!wishlist()) {
-    <p>No movies added to wishlist yet.</p>
-  } @else {
-    @for (movie of wishlist(); track movie._id) {
-      <div>
-        {{ movie.title }}
-      </div>
-    }
-
-  }
-
 </div>
