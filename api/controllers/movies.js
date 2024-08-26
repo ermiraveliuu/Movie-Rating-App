@@ -58,7 +58,9 @@ const getMovie = async (req, res) => {
       }
       review = await Review.findOne({ user: userId, movie: movieId })
     }
-    const language = await Language.find({ tmdb_id:  movie._doc.original_language })
+    const language = await Language.find(
+      { tmdb_id:  movie._doc.original_language }
+    )
     res.status(201).json({
       ...movie._doc,
       isInWishlist,

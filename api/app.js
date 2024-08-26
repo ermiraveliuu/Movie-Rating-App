@@ -15,7 +15,6 @@ require('./controllers/passport')
 const port = 3001;
 const app = express();
 
-
 //middleware
 app.use(cors())
 app.use(express.json());

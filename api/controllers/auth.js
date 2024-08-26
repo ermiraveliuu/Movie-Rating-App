@@ -1,13 +1,13 @@
 const { hashSync, compareSync } = require('bcrypt')
-const userModel = require('../models/User')
+const user = require('../models/User')
 const jwt = require('jsonwebtoken')
 
 const register = async (req, res) => {
-  const userExists = await userModel.findOne({ username: req.body.username })
+  const userExists = await user.findOne({ username: req.body.username })
   if(userExists) {
     res.status(400).send('User already exists')
   } else {
-    const user = new userModel({
+    const user = new user({
       ...req.body,
       password: hashSync(req.body.password, 10),
     })
@@ -31,7 +31,7 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    userModel.findOne({username: req.body.username}).then((user) => {
+  user.findOne({username: req.body.username}).then((user) => {
       if (!user) {
         return res.status(401).send({
           success: false,
@@ -58,16 +58,6 @@ const login = async (req, res) => {
       })
     })
 }
-// app.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
-//   res.status(200).send({
-//     success: true,
-//     user: {
-//       id: req.user._id,
-//       username: req.user.username,
-//     },
-//   })
-// })
-
 
 module.exports = {
   register,

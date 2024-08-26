@@ -72,6 +72,7 @@ export class MoviePageComponent implements OnInit {
   }
 
   protected round(rating: number) {
+    if (rating === 0) return rating;
     return rating?.toFixed(1)
   }
 

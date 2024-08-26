@@ -22,6 +22,7 @@ export class MovieCardComponent {
   protected readonly tuiIconStar = tuiIconStar
 
   protected round(rating: number) {
+    if (rating === 0) return rating;
     return rating?.toFixed(1)
   }
 }
