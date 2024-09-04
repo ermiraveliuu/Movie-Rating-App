@@ -4,7 +4,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TuiInputModule } from '@taiga-ui/kit';
+import { TuiInputModule, TuiTextareaModule } from '@taiga-ui/kit'
 import { NgIf, TitleCasePipe } from '@angular/common';
 import { FormControlPipe } from '../../../../pipes/form-control.pipe';
 import {
@@ -15,9 +15,9 @@ import {
 import { ErrorComponent } from '../../error/error.component';
 
 @Component({
-  selector: 'text-input',
-  templateUrl: 'text-input.component.html',
-  styleUrls: ['text-input.component.scss'],
+  selector: 'text-area-input',
+  templateUrl: 'text-area-input.component.html',
+  styleUrls: ['text-area-input.component.scss'],
   standalone: true,
   imports: [
     TuiInputModule,
@@ -29,10 +29,11 @@ import { ErrorComponent } from '../../error/error.component';
     NgIf,
     TuiTextfieldControllerModule,
     ErrorComponent,
+    TuiTextareaModule,
   ],
 })
-export class TextInputComponent {
-  @Input() name!: string;
-  @Input() control!: AbstractControl;
-  protected readonly Validators = Validators;
+export class TextAreaInputComponent {
+  @Input() name!: string
+  @Input() control!: AbstractControl
+  protected readonly Validators = Validators
 }

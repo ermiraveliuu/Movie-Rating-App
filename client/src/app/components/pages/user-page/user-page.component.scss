@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  height: 100%;
+
+  .empty-state {
+    display: flex;
+  }
+
+  .rating {
+    margin: -20px -40px;
+    color: var(--tui-warning-fill);
+    font-size: 0.25rem;
+    width: 10rem;
+    scale: 50%
+  }
+
+  .review-card {
+    border: 1px solid var(--tui-base-02);
+  }
+
+  .rating-icon {
+    color: var(--tui-accent);
+  }
+
+}

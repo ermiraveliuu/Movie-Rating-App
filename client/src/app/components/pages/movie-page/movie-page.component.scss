@@ -11,10 +11,41 @@
   font-size: 16px;
 }
 
-tui-svg:hover {
+.watchlist-icon:hover {
   color: var(--tui-primary);
+}
+
+.rating-icon:hover {
+  color: var(--tui-warning-fill);
 }
 
 .background-image {
   max-width: 70vw;
+}
+
+.fill-watchlist-icon {
+  color: var(--tui-primary);
+  fill: var(--tui-primary);
+}
+
+.fill-rating-icon {
+  color: var(--tui-warning-fill);
+  fill: var(--tui-warning-fill);
+}
+
+.movie-details {
+  min-width: calc(100vw - 15rem - 660px);
+  width: calc(100vw - 15rem - 660px);
+}
+
+.scrollbar {
+  max-height: calc(100vh - 216px);
+}
+
+.rating {
+  margin: -20px -40px;
+  color: var(--tui-warning-fill);
+  font-size: 0.25rem;
+  width: 10rem;
+  scale: 50%
 }

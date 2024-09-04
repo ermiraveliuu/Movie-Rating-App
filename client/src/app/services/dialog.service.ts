@@ -19,4 +19,5 @@ export class DialogService {
 interface Options {
   size?: TuiDialogSize;
   label?: string;
+  data?: any;
 }

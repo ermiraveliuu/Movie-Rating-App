@@ -1,22 +1,22 @@
 const mongoose = require('mongoose');
-const { Genre } = require('./Genre')
 
 const MovieSchema = new mongoose.Schema({
-    backdrop_path: { type: String, required: [true, 'Must provide backdrop_path'] },
+    backdrop_path: { type: String },
     budget: { type: Number },
-    genreIds: { type: [String] },
+    genreIds: { type: [String], default: [] },
+    genres: { type: [String], default: [] },
     id: { type: Number, required: [true, 'Must provide id'] },
     imdb_id: { type: String },
-    overview: { type: String, required: [true, 'Must provide overview'] },
+    overview: { type: String},
     popularity: { type: Number },
-    poster_path: { type: String, required: [true, 'Must provide poster_path'] },
+    poster_path: { type: String},
     release_date: { type: Date },
     revenue: { type: Number },
-    runtime: { type: Number, required: [true, 'Must provide runtime'] },
-    status: { type: String, required: [true, 'Must provide status'] },
+    runtime: { type: Number },
+    status: { type: String},
     title: { type: String, required: [true, 'Must provide title'] },
-    vote_average: { type: Number, required: [true, 'Must provide vote_average'] },
-    vote_count: { type: Number, required: [true, 'Must provide vote_count'] }
+    vote_average: { type: Number, default: 0 },
+    vote_count: { type: Number, default: 0.0 }
 });
 
 module.exports = mongoose.model('Movie', MovieSchema);

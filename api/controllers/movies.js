@@ -1,4 +1,8 @@
+const mongoose = require('mongoose')
 const Movie = require('../models/Movie')
+const Wishlist = require('../models/Wishlist')
+const Review = require('../models/Review')
+const Language = require('../models/Language')
 
 const getAllMovies = async (req, res) => {
   try {
@@ -24,9 +28,11 @@ const getAllMovies = async (req, res) => {
     }
 
     const itemCount = await Movie.countDocuments(query);
+
     const movies = await Movie.find(query)
-                               .skip((page - 1) * limit) // Skip documents that are before the current page
-                               .limit(limit);
+      .skip((page - 1) * limit) // Skip documents that are before the current page
+      .limit(limit);
+
     res.status(201).json({
       status: 'success',
       data: movies,
@@ -40,46 +46,34 @@ const getAllMovies = async (req, res) => {
 
 const getMovie = async (req, res) => {
   try {
-    const movie = await Movie.findById(req.params.id)
-    res.status(201).json(movie);
-  } catch (e) {
-    res.status(500).json({message: e})
-  }
-};
-
-const createMovie = async (req, res) => {
-  try {
-    const movie = await Movie.create(req.body)
-    res.status(201).json(movie);
-  } catch (error) {
-    res.status(500).json({message: error})
-  }
-};
-
-const createMovies = async (req, res) => {
-  try {
-    for(movie of req.body) {
-      await Movie.create(req.body)
+    const movieId = req.params.id;
+    const userId = req.query.userId
+    const movie = await Movie.findById(movieId)
+    let isInWishlist = false;
+    let review = false;
+    if (userId) {
+      const wishlist = await Wishlist.findOne({ userId });
+      if (wishlist) {
+        isInWishlist = wishlist.movies.includes(new mongoose.Types.ObjectId(movieId));
+      }
+      review = await Review.findOne({ user: userId, movie: movieId })
     }
-    // const movie = await Movie.create(req.body)
-    res.status(201).json(movie);
-  } catch (error) {
-    res.status(500).json({message: error})
+    const language = await Language.find(
+      { tmdb_id:  movie._doc.original_language }
+    )
+    res.status(201).json({
+      ...movie._doc,
+      isInWishlist,
+      review,
+      language: language[0].englishName ?? 'Not Known'
+    });
+  } catch (e) {
+    res.status(404).json({message: e})
   }
 };
 
-const updateMovie = (req, res) => {
-  res.send("Update movie");
-};
-
-const deleteMovie = (req, res) => {
-  res.send("Delete movie");
-};
 
 module.exports = {
   getAllMovies,
-  createMovie,
   getMovie,
-  updateMovie,
-  deleteMovie,
 };

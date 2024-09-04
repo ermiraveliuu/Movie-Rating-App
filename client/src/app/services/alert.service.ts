@@ -7,8 +7,8 @@ export class AlertService {
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService
   ) {}
 
-  showSuccessMessage() {
-    this.alerts.open('Action Completed Successfully!', { status: 'success' }).subscribe();
+  showSuccessMessage(message?: string): void {
+    this.alerts.open(message ?? 'Action Completed Successfully!', { status: 'success' }).subscribe();
   }
 
   showMessage(message: string, status: TuiNotificationT) {

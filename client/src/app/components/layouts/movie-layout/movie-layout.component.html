@@ -5,7 +5,9 @@
     @if (!movies()?.length && !showLoader()) {
       <p>No movies found.</p>
     } @else {
-      <movie-card *ngFor="let movie of movies()" [movie]="movie" (click)="goToMovieDetails(movie)" />
+      <div class="grid grid-cols-5 gap-4 m-4">
+        <movie-card *ngFor="let movie of movies()" [movie]="movie" (click)="goToMovieDetails(movie)" />
+      </div>
     }
   </div>
   @if (pages) {
