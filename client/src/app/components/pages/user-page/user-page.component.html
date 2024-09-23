@@ -24,7 +24,7 @@
     <div class="min-w-[1226px] max-w-[1226px] h-full">
       @if (index === 0) {
         <div class="wishlist h-full">
-          @if (!wishlist().length) {
+          @if (!wishlist()?.length) {
             <div class="flex items-center justify-center h-full text-lg">
               No movies added to wishlist yet.
             </div>

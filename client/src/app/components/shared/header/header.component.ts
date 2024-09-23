@@ -80,6 +80,5 @@ export class HeaderComponent {
   protected readonly tuiIconMoon = tuiIconMoon
   protected readonly tuiIconFilter = tuiIconFilter
   protected readonly tuiIconFilm = tuiIconFilm
-  protected readonly tuiIconBookmark = tuiIconBookmark
   protected readonly tuiIconLogIn = tuiIconLogIn
 }

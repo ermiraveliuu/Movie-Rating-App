@@ -16,6 +16,7 @@ import { filter, mergeMap, tap } from 'rxjs'
 import { SetBackgroundImageDirective } from '../../../directives/set-background-image.directive'
 import { AvatarColorPipe } from '../../../pipes/avatar-color.pipe'
 import { AlertService } from '../../../services/alert.service'
+import { AuthService } from '../../../services/auth.service'
 import { DialogService } from '../../../services/dialog.service'
 import { MoviesService } from '../../../services/movies.service'
 import { ReviewsService } from '../../../services/reviews.service'
@@ -59,6 +60,7 @@ export class MoviePageComponent implements OnInit {
   private reviewsService = inject(ReviewsService)
   private alertService = inject(AlertService)
   private dialogService = inject(DialogService)
+  private authService = inject(AuthService);
 
   ngOnInit() {
     const movieId = this.route.snapshot.params['id']
@@ -77,6 +79,7 @@ export class MoviePageComponent implements OnInit {
   }
 
   addToWishlist() {
+    if(!this.authService.isAuthorized()) return;
     this.movie.isInWishlist = true;
     this.wishlistService
       .addToWishlist(this.movie._id)
@@ -103,6 +106,7 @@ export class MoviePageComponent implements OnInit {
   }
 
   openRatingDialog() {
+    if(!this.authService.isAuthorized()) return;
     this.dialogService
       .open(RateDialogComponent, {
         label: 'Rate Movie',

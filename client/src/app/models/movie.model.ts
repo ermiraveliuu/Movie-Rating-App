@@ -4,7 +4,6 @@ export interface Movie {
   id: number,
   imdb_id: string,
   overview: string,
-  popularity: 8.5,
   poster_path: string,
   release_date: Date,
   revenue: number,

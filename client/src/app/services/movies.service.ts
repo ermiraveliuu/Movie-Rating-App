@@ -37,7 +37,7 @@ export class MoviesService extends BaseService {
     if(userId) {
       params = new HttpParams().append('userId', userId);
     }
-    return this.http.get<any>(`/movies/${movieId}`, { params })
+    return this.http.get<Movie>(`/movies/${movieId}`, { params })
   }
 }
 

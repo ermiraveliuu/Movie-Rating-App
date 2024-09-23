@@ -1,13 +1,13 @@
 const { hashSync, compareSync } = require('bcrypt')
-const user = require('../models/User')
+const userModel = require('../models/User')
 const jwt = require('jsonwebtoken')
 
 const register = async (req, res) => {
-  const userExists = await user.findOne({ username: req.body.username })
+  const userExists = await userModel.findOne({ username: req.body.username })
   if(userExists) {
     res.status(400).send('User already exists')
   } else {
-    const user = new user({
+    const user = new userModel({
       ...req.body,
       password: hashSync(req.body.password, 10),
     })
@@ -31,7 +31,7 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  user.findOne({username: req.body.username}).then((user) => {
+    userModel.findOne({username: req.body.username}).then((user) => {
       if (!user) {
         return res.status(401).send({
           success: false,

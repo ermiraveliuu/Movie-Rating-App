@@ -16,26 +16,36 @@ export class ReviewsService extends BaseService {
   }
 
   addReview(movieId: string, rating: number, comment?: string): Observable<any> {
-    return this.http.post<any>(`${this.basePath}/add`, { movieId, userId: this.authService.user._id, comment, rating })
+    return this.http.post<any>(
+      `${this.basePath}/add`,
+      { movieId, userId: this.authService.user._id, comment, rating })
   }
 
   edit(reviewId, movieId: string, rating: number, comment?: string): Observable<any> {
-    const params = new HttpParams().append('movieId', movieId);
-    return this.http.put<any>(`${this.basePath}/${reviewId}`, { userId: this.authService.user._id, comment, rating }, { params })
+    const params = new HttpParams().append('movieId', movieId)
+    return this.http.put<any>(
+      `${this.basePath}/${reviewId}`,
+      {
+        userId: this.authService.user._id,
+        comment,
+        rating,
+      },
+      { params },
+    )
   }
 
   getMovieReviews(movieId: string) {
-    const params = new HttpParams().append('movieId', movieId);
-    return this.http.get<any>(`${this.basePath}`, {params})
+    const params = new HttpParams().append('movieId', movieId)
+    return this.http.get<any>(`${this.basePath}`, { params })
   }
 
   getUserReviews(userId: string) {
-    const params = new HttpParams().append('userId', userId);
-    return this.http.get<any>(`${this.basePath}`, {params})
+    const params = new HttpParams().append('userId', userId)
+    return this.http.get<any>(`${this.basePath}`, { params })
   }
 
   deleteReview(reviewId: string, movieId: string) {
-    const params = new HttpParams().append('movieId', movieId);
+    const params = new HttpParams().append('movieId', movieId)
     return this.http.delete<any>(`${this.basePath}/${reviewId}`, { params })
   }
 }

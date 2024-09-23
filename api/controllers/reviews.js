@@ -31,13 +31,11 @@ const addReview = async (req, res) => {
     })
     await review.save()
 
-    // Update the movie's rating and vote count
     const movie = await Movie.findById(movieId)
     if (!movie) {
       return res.status(404).json({ message: 'Movie not found' })
     }
 
-    // Fetch all reviews for the movie
     await refreshMovieRating(movieId);
     res.status(201).json({status: 'success'});
   } catch (error) {
